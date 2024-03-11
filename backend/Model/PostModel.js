@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.schema({
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref : 'userModel',
-        required:true
-    },
+const postSchema = new mongoose.Schema({
     caption:{
         type : String,
         required : true
@@ -15,9 +10,12 @@ const postSchema = new mongoose.schema({
     },
     timestamp : {
         type: Date,
-        derault: Date.now()
-    }
-
+        default: Date.now()
+    },
+    comment: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'commentModel'
+    }]
 })
 
 
