@@ -9,9 +9,6 @@ const commentSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    replies: {
-        type: [replyComment]
-    },
     replies: [{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'replyModel'
@@ -33,5 +30,6 @@ const replyCommentSchema = new mongoose.Schema({
 
 const commentModel = mongoose.model("commentModel", commentSchema);
 const replyModel = mongoose.model("replyModel", replyCommentSchema);
+
 
 module.exports = { commentModel, replyModel };
