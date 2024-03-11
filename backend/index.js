@@ -34,8 +34,9 @@ DB();
 
 
 const authRoutes = require('./Routes/authRoutes');
-
+const postRoutes = require('./Routes/postRoutes');
 
 
 
 app.use("/auth",authRoutes)
+app.use('/post', postRoutes);

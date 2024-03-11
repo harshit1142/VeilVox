@@ -13,7 +13,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    post: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'postModel'
+    }]
 })
 
 userSchema.pre('save', async function () {

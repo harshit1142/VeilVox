@@ -1,16 +1,6 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'userModel',
-        required:true
-    },
-    postId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'postModel',
-        required: true
-    },
     content:{
         type: String,
         required: true
@@ -21,16 +11,14 @@ const commentSchema = new mongoose.Schema({
     },
     replies: {
         type: [replyComment]
-    }
-
+    },
+    replies: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'replyModel'
+    }]
 })
 
 const replyCommentSchema = new mongoose.Schema({
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'userModel',
-        required:true
-    },
     reply:{
         type: String,
         required: true
