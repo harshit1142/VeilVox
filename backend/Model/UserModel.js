@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const postModel = require('../Model/PostModel');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
