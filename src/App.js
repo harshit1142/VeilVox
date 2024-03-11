@@ -1,13 +1,14 @@
 
 import './App.css';
 import Home from './Pages/Home/Home'
-import Auth from './Pages/Auth/Auth'
 import PageNotFound from './Pages/404/PageNotFound'
+import Login from './Pages/Auth/Login';
 
 import {
   BrowserRouter,
   Switch,
   Route
+  
 } from "react-router-dom";
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/auth" component={Auth} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Login} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
