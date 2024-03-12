@@ -116,8 +116,8 @@
   
   .label {
     position: absolute;
-    top: 15px;
-    left: 20px;
+    top: -10px;
+      left: 20px;
     transition: 0.2s;
   }
   
