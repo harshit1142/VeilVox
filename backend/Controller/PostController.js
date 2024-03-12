@@ -12,7 +12,7 @@ async function createPost(req, res){
         
 
         await userModel.updateOne({
-            userId: userid
+            _id: userid
         },
         {
             $push:{
@@ -50,7 +50,7 @@ async function getAllPosts(req, res){
 async function getUserPost(req, res){
     try{
         const userid = req.params.id;
-        const posts = await userModel.findOne({ userId: userid }).populate({path:'post', model: 'postModel'});
+        const posts = await userModel.findOne({ _id: userid }).populate({path:'post', model: 'postModel'});
 
         res.status(201).json(posts.post);
 
