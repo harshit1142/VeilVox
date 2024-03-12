@@ -30,7 +30,7 @@ async function createPost(req, res){
     catch(error){
 
         res.json({
-            msg : error
+            msg : "error"+error
         })
     }
 }
@@ -42,7 +42,7 @@ async function getAllPosts(req, res){
     } catch (error) {
         
         res.json({
-            msg : error
+            msg : "error"+error
         })
     }
 }
@@ -57,7 +57,7 @@ async function getUserPost(req, res){
     } catch(error){
         
         res.json({
-            msg : error
+            msg : "error"+error
         })
     }
 
