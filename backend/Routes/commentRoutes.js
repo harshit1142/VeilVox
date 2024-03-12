@@ -1,8 +1,8 @@
 const express = require('express');
 const commentRoutes = express.Router();
+const { createComments } = require('../Controller/commentController');
 
-
-commentRoutes.get('/:id', getAllComments);
+commentRoutes.post('/:id', createComments);
 
 
 

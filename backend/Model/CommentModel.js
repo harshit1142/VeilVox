@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    userId:{
+        type:String,
+        required:true
+    },
     content:{
         type: String,
         required: true
@@ -16,6 +24,14 @@ const commentSchema = new mongoose.Schema({
 })
 
 const replyCommentSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    userId:{
+        type:String,
+        required:true
+    },
     reply:{
         type: String,
         required: true
