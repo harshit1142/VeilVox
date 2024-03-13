@@ -1,26 +1,31 @@
 import React from 'react'
 import './styles.css'
 
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+
 export default function Home() {
   return (
-    <div>
+    <div className='main'>
        <header>
         <nav>
             <div class="logo">VeilVox</div>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Chat</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><Link to="#home"  class="nav-link">Home</Link></li>
+                <li><Link to="/chat" class="nav-link">Chat</Link></li>
+                <li><Link to="#about" class="nav-link">About</Link></li>
+                {/* <li><Link to="">Contact</Link></li> */}
+                <li>
+                <Link to="/login" class="nav-btn">Login</Link>
+                </li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Welcome to VeilVox</h1>
-            <p>Your ultimate platform for anonymous chatting.</p>
-            <a href="post-page.html" class="btn">Get Started</a>
+            <h1>Welcome to <b className='title'>VeilVox</b></h1>
+            <p>Your ultimate Anonymous Social Platform.</p>
+            <Link to="/register" class="btn">Get Started</Link>
         </div>
     </section>
     

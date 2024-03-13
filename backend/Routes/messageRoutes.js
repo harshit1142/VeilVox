@@ -6,7 +6,7 @@ const messageRoutes = express.Router();
 
 
 messageRoutes
-    .route("/")
+    .route("/:chatId")
     .post(sendMessage)
 
 messageRoutes

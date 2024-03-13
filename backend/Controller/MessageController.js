@@ -4,7 +4,8 @@ const userModel = require("../Model/UserModel");
 
 
  async function sendMessage(req,res){
-     const {content,chatId,userId}=req.body;
+    const chatId=req.params.id;
+     const {content,userId}=req.body;
 
      var newMessage={
         sender:userId,
