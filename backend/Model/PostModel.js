@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const commentModel = require('../Model/CommentModel');
+const { commentModel } = require('../Model/CommentModel');
 
 const postSchema = new mongoose.Schema({
     caption:{
@@ -16,6 +16,14 @@ const postSchema = new mongoose.Schema({
     comment: [{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'commentModel'
+    }],
+    upvote: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'userModel'
+    }],
+    downvote: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'userModel'
     }]
 })
 
