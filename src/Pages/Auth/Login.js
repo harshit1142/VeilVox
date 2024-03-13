@@ -25,7 +25,7 @@ export default function Login() {
     <div className="remember-forget">
             <div className="remember-me">
             <input type="checkbox" id="remember" /> 
-            <label for="remember" className="label">Remeber me</label>
+            <label for="remember" > Remeber me</label>
             </div>
 
             <div className="forget">
