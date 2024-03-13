@@ -34,8 +34,10 @@ DB();
 
 
 const authRoutes = require('./Routes/authRoutes');
+const chatRoutes = require('./Routes/chatRoutes');
 
 
 
 
 app.use("/auth",authRoutes)
+app.use("/chat",chatRoutes)
