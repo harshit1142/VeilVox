@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const InitialValue = {
-    user: { name: "", userId: "" }
+    user: { name: "", userId: "" ,password:""}
 }
 
 

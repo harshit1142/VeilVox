@@ -6,22 +6,24 @@ dotenv.config({ path: '../.env' });
 const jwtKey = process.env.JWT_KEY;
 
 async function loginUser(req, res) {
-    const { userId, password } = req.body;
-    
-    const user = await userModel.findOne({ userId: userId }).exec();
+    const { username, password } = req.body;
+    console.log(req.body);
+    const user = await userModel.findOne({ name: username }).exec();
+    console.log(user);
+ 
         if (user) {
             const match = await bcrypt.compare(password, user.password);
             if (match) {
                 const id = user['_id']
                 const token = jwt.sign({ payload: id }, jwtKey);
-                const expirationTime = new Date(new Date().getTime() + 600000);
-                res.cookie('user', token, { httpOnly: true, expirationTime: expirationTime });
+                res.cookie('user', token, { httpOnly: true});
 
               
                 res.json({
-                    status: 200,
+                    status: 201,
                     meassage: "Login successfully",
-                    data: user
+                    data: user,
+                    token: token
                 })
             }
             else {
@@ -29,7 +31,7 @@ async function loginUser(req, res) {
             }
         }
         else {
-            res.json({ meassage: "Invalid userId" });
+            res.json({ meassage: "Invalid username" });
         }
     }
 
@@ -38,14 +40,20 @@ async function postuser(req, res) {
     try {
         const body = req.body;
         const user = await userModel.create(body);
+
+        const id = user['_id']
+        const token = jwt.sign({ payload: id }, jwtKey);
+        res.cookie('user', token, { httpOnly: true });
+
         res.json({
             status: 201,
             message: "Registered Successfully",
             data: user,
+            token:token
         });
     } catch (error) {
         res.json({
-            message: error,
+            message: "error"+error,
             data: []
         })
     }

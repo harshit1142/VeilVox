@@ -1,17 +1,45 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
 import "./login.css"
+import { setUser } from '../../Redux/UserRedux';
 
 
 export default function Register() {
-
+    const history=useHistory();
+    const dispatch = useDispatch();
+    
     const [data, setData] = useState({
-        name: "",
+        user: "",
         password: ""
     })
 
     function handleChange(e) {
         setData({ ...data, [e.target.name]: e.target.value });
+    }
+
+    async function handleSubmit(){
+        const response = await fetch("http://localhost:4000/auth/register", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                name:data.user,
+                password:data.password
+            })
+        })
+        const res = await response.json();
+        if (res.status === 201) {
+            alert("Registered Successfully!!");
+            dispatch(setUser(res.user));
+            history.push("/main");
+
+        } else {
+            if (res.message.indexOf("E11000")) alert("User Already Exist!!")
+            else
+            alert(res.message);
+        }
     }
 
   return (
@@ -22,7 +50,7 @@ export default function Register() {
               </div>
 
               <div className="input_box">
-                  <input type="text" id="user" name="name" autocomplete="off" value={data.name} onChange={handleChange} className="input-field" required />
+                  <input type="text" id="user" name="user" autocomplete="off" value={data.name} onChange={handleChange} className="input-field" required />
                   <label for="user" className="label">Username </label>
                   <i className="bx bx-user icon" />
               </div>
@@ -45,7 +73,7 @@ export default function Register() {
             </div> */}
               </div>
               <div className="input_box">
-                  <input type="submit" className="input-submit" value="Register" />
+                  <input type="submit" onClick={handleSubmit} className="input-submit" value="Register" />
               </div>
 
               <div className="register">

@@ -1,18 +1,43 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import "./login.css"
+import { setUser } from '../../Redux/UserRedux';
 
 
 export default function Login() {
- 
+    const history=useHistory();
+    const dispatch = useDispatch();
     const [data, setData] = useState({
-        name: "",
+        user: "",
         password: ""
     })
 
     function handleChange(e) {
         setData({ ...data, [e.target.name]: e.target.value });
+    }
+
+    async function handleSubmit() {
+        const response = await fetch("http://localhost:4000/auth/login", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                username: data.user,
+                password: data.password
+            })
+        })
+        const res = await response.json();
+        if (res.status === 201) {
+            alert("Login Successfully!!");
+            dispatch(setUser(res.data));
+            history.push("/main");
+
+        } else {
+            alert("Error Occured" + res.message);
+        }
     }
 
   return (
@@ -23,7 +48,7 @@ export default function Login() {
         </div>
 
         <div className="input_box">
-                  <input type="text" id="user" name="name" autocomplete="off" value={data.name} onChange={handleChange} className="input-field" required /> 
+                  <input type="text" id="user" name="user" autocomplete="off" value={data.name} onChange={handleChange} className="input-field" required /> 
             <label for="user" className="label">Username </label>
             <i className="bx bx-user icon" />
         </div>
@@ -46,7 +71,7 @@ export default function Login() {
             </div> */}
         </div>
     <div className="input_box">
-        <input type="submit"  className="input-submit" value="Login" />
+        <input type="submit" onClick={handleSubmit}  className="input-submit" value="Login" />
     </div>
 
     <div className="register">

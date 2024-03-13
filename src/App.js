@@ -10,6 +10,7 @@ import {
   Route
   
 } from "react-router-dom";
+import Main from './Pages/Main/Main';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/main" component={Main} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

@@ -10,8 +10,8 @@ export default function Home() {
         <nav>
             <div class="logo">VeilVox</div>
             <ul>
-                <li><Link to="#home"  class="nav-link">Home</Link></li>
-                <li><Link to="/chat" class="nav-link">Chat</Link></li>
+                {/* <li><Link to="#home"  class="nav-link">Home</Link></li> */}
+                {/* <li><Link to="/chat" class="nav-link">Chat</Link></li> */}
                 <li><Link to="#about" class="nav-link">About</Link></li>
                 {/* <li><Link to="">Contact</Link></li> */}
                 <li>
