@@ -1,19 +1,20 @@
 const mongoose = require("mongoose");
+const postModel = require('../Model/PostModel');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
-    },
-    userId:{
-        type:String,
-        require:true
+        required: true,
     },
     password: {
         type: String,
-        require: true
-    }
+        required: true
+    },
+    post: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'postModel'
+    }]
 })
 
 userSchema.pre('save', async function () {
