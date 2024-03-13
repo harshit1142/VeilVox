@@ -12,7 +12,7 @@
   }
   
   .wrapper {
-    background-image: url("./.jpg");
+    background-image: url("./bg.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -37,7 +37,7 @@
     background-color: rgba(0, 0, 0, 0.2);
   }
   
-  .login_box {
+  .register_box {
     position: relative;
     width: 450px;
     backdrop-filter: blur(25px);
@@ -48,7 +48,7 @@
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
   }
   
-  .login-header {
+  .register-header {
     position: absolute;
     top: 0;
     left: 50%;
@@ -63,12 +63,12 @@
   }
 
   
-  .login-header span {
+  .register-header span {
     font-size: 30px;
     color: var(--black-color);
   }
   
-  .login-header::before {
+  .register-header::before {
     content: "";
     position: absolute;
     top: 0;
@@ -80,7 +80,7 @@
     box-shadow: 15px 0 0 0 var(--primary-color);
   }
   
-  .login-header::after {
+  .register-header::after {
     content: "";
     position: absolute;
     top: 0;
@@ -117,10 +117,9 @@
   
   .label {
     position: absolute;
-    top: -10px;
-      left: 20px;
+    top: 15px;
+    left: 20px;
     transition: 0.2s;
-    color: black;
   }
   
   .input-field:focus ~ .label,
@@ -143,11 +142,6 @@
     font-size: 20px;
   }
   
-  .remember-forgot {
-    display: flex;
-    justify-content: space-between;
-    font-size: 15px;
-  }
   
   .input-submit {
     width: 100%;
@@ -165,11 +159,11 @@
     background: var(--second-color);
   }
   
-  .register {
+  .login {
     text-align: center;
   }
   
-  .register a {
+  .login a {
     font-weight: 500;
   }
   
@@ -178,7 +172,7 @@
       padding: 20px;
     }
   
-    .login_box {
+    .register_box {
       padding: 7.5em 1.5em 4em 1.5em;
     }
   }
