@@ -2,7 +2,7 @@ const chatModel = require('../Model/ChatModel');
 const userModel = require('../Model/UserModel');
 
 
- async function getChat(req,res){
+ async function postChat(req,res){
     try {
         const { otherUserId }=req.body;
         const userId=req.params.id;
@@ -236,4 +236,4 @@ async function removeFromGroup(req,res){
     
 }
 
-module.exports = { getAllChat, getChat, createGroupChat, renameChat, addToGroup, removeFromGroup };
+module.exports = { getAllChat, postChat, createGroupChat, renameChat, addToGroup, removeFromGroup };

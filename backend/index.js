@@ -38,6 +38,7 @@ const chatRoutes = require('./Routes/chatRoutes');
 const postRoutes = require('./Routes/postRoutes');
 const commentRoutes = require('./Routes/commentRoutes');
 const replyRoutes = require('./Routes/replyRoutes');
+const messageRoutes = require('./Routes/messageRoutes');
 
 
 
@@ -47,6 +48,7 @@ app.use("/auth",authRoutes);
 app.use('/post', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/reply', replyRoutes);
+app.use('/message', messageRoutes);
 
 
 

@@ -1,5 +1,5 @@
 const express = require("express");
-const { getChat, getAllChat, createGroupChat, renameChat, addToGroup, removeFromGroup } = require("../Controller/ChatController");
+const { postChat, getAllChat, createGroupChat, renameChat, addToGroup, removeFromGroup } = require("../Controller/ChatController");
 
 
 const chatRoutes = express.Router();
@@ -8,7 +8,7 @@ const chatRoutes = express.Router();
 chatRoutes
     .route("/:id")
     .get(getAllChat)
-    .post(getChat)
+    .post(postChat)
 
 chatRoutes
     .route("/group/:id")
