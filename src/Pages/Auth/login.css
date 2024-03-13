@@ -61,6 +61,7 @@
     height: 70px;
     border-radius: 0 0 20px 20px;
   }
+
   
   .login-header span {
     font-size: 30px;
@@ -88,7 +89,7 @@
     height: 30px;
     border-top-left-radius: 50%;
     background: transparent;
-    box-shadow: -15px 0 0 0 var(--primary-color); /* Removed space before --primary-color */
+    box-shadow: -15px 0 0 0 var(--primary-color); 
   }
   
   .input_box {
@@ -123,7 +124,7 @@
   
   .input-field:focus ~ .label,
   .input-field:valid .label {
-    /* Added missing closing brace here */
+    
     position: absolute;
     top: -10px;
     left: 20px;
@@ -132,7 +133,7 @@
     border-radius: 30px;
     color: var(--black-color);
     padding: 0 10px;
-  } /* Closed the missing brace */
+  } 
   
   .icon {
     position: absolute;
