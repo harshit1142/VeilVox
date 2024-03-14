@@ -11,8 +11,18 @@ import {
   
 } from "react-router-dom";
 import Main from './Pages/Main/Main';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setUser } from './Redux/UserRedux';
 
 function App() {
+  const dispatch = useDispatch();
+ useEffect(()=>{
+    if(localStorage.getItem("user")){
+      dispatch(setUser(JSON.parse(localStorage.getItem("user"))))
+    }
+ },[dispatch])
+
   return (
     <>
       <BrowserRouter>

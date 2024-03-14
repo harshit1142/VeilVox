@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import "./login.css"
@@ -7,13 +7,15 @@ import { setUser } from '../../Redux/UserRedux';
 
 
 export default function Login() {
+    const selectUser = (state) => state.UserReducer.user;
+    const user = useSelector(selectUser);
     const history=useHistory();
     const dispatch = useDispatch();
     const [data, setData] = useState({
         user: "",
         password: ""
     })
-
+    
     function handleChange(e) {
         setData({ ...data, [e.target.name]: e.target.value });
     }
@@ -40,6 +42,11 @@ export default function Login() {
             alert("Error Occured" + res.message);
         }
     }
+     
+    if(!(user.name==="")){
+        history.push("/main");
+    }
+    
 
   return (
     <div className="wrapper">

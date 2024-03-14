@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import "./login.css"
 import { setUser } from '../../Redux/UserRedux';
 
 
 export default function Register() {
+    const selectUser = (state) => state.UserReducer.user;
+    const user = useSelector(selectUser);
     const history=useHistory();
     const dispatch = useDispatch();
     
@@ -41,6 +43,10 @@ export default function Register() {
             else
             alert(res.message);
         }
+    }
+
+    if (!(user.name === "")) {
+        history.push("/main");
     }
 
   return (
