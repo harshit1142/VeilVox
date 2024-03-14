@@ -7,9 +7,9 @@ const jwtKey = process.env.JWT_KEY;
 
 async function loginUser(req, res) {
     const { username, password } = req.body;
-    console.log(req.body);
+   
     const user = await userModel.findOne({ name: username }).exec();
-    console.log(user);
+   
  
         if (user) {
             const match = await bcrypt.compare(password, user.password);

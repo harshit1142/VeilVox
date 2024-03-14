@@ -8,24 +8,24 @@ export default function Home() {
     <div className='main'>
        <header>
         <nav>
-            <div class="logo">VeilVox</div>
+            <div className="logo">VeilVox</div>
             <ul>
-                {/* <li><Link to="#home"  class="nav-link">Home</Link></li> */}
-                {/* <li><Link to="/chat" class="nav-link">Chat</Link></li> */}
-                <li><Link to="#about" class="nav-link">About</Link></li>
+                {/* <li><Link to="#home"  className="nav-link">Home</Link></li> */}
+                {/* <li><Link to="/chat" className="nav-link">Chat</Link></li> */}
+                <li><Link to="#about" className="nav-link">About</Link></li>
                 {/* <li><Link to="">Contact</Link></li> */}
                 <li>
-                <Link to="/login" class="nav-btn">Login</Link>
+                <Link to="/login" className="nav-btn">Login</Link>
                 </li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
+    <section className="hero">
+        <div className="hero-content">
             <h1>Welcome to <b className='title'>VeilVox</b></h1>
             <p>Your ultimate Anonymous Social Platform.</p>
-            <Link to="/register" class="btn">Get Started</Link>
+            <Link to="/register" className="btn">Get Started</Link>
         </div>
     </section>
     

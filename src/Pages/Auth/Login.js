@@ -18,7 +18,8 @@ export default function Login() {
         setData({ ...data, [e.target.name]: e.target.value });
     }
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault();
         const response = await fetch("http://localhost:4000/auth/login", {
             method: "POST",
             headers: {
@@ -46,23 +47,24 @@ export default function Login() {
         <div className="login-header">
             <span> Login </span>
         </div>
-
+        
+        <form >
         <div className="input_box">
-                  <input type="text" id="user" name="user" autocomplete="off" value={data.name} onChange={handleChange} className="input-field" required /> 
-            <label for="user" className="label">Username </label>
+                  <input type="text" id="user" name="user" autoComplete="off" value={data.name} onChange={handleChange} className="input-field" required /> 
+            <label htmlFor="user" className="label">Username </label>
             <i className="bx bx-user icon" />
         </div>
 
         <div className="input_box">
                   <input type="password" id="pass" name='password' value={data.password} onChange={handleChange} className="input-field" required /> 
-            <label for="pass" className="label">Password</label>
+            <label htmlFor="pass" className="label">Password</label>
             <i className="bx bx-lock-alt icon"> </i>
         </div>
 
     <div className="remember-forget">
             {/* <div className="remember-me">
             <input type="checkbox" id="remember" /> 
-            <label for="remember" className="label">Remeber me</label>
+            <label htmlFor="remember" className="label">Remeber me</label>
             </div> */}
 
 
@@ -73,7 +75,7 @@ export default function Login() {
     <div className="input_box">
         <input type="submit" onClick={handleSubmit}  className="input-submit" value="Login" />
     </div>
-
+              </form>
     <div className="register">
         <span> Don't have an account? <Link to="/register" >Register</Link></span>
     </div>
