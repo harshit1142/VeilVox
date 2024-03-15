@@ -37,10 +37,9 @@ async function createPost(req, res){
 
 async function getAllPosts(req, res){
     try {
-        const posts = await postModel.find({});
+        const posts = await postModel.find({}).populate("comment");
         res.status(201).json(posts);
     } catch (error) {
-        
         res.json({
             msg : "error"+error
         })
@@ -50,8 +49,7 @@ async function getAllPosts(req, res){
 async function getUserPost(req, res){
     try{
         const userid = req.params.id;
-        const posts = await userModel.findOne({ _id: userid }).populate({path:'post', model: 'postModel'});
-
+        const posts = await userModel.findOne({ _id: userid }).populate("post");
         res.status(201).json(posts.post);
 
     } catch(error){
