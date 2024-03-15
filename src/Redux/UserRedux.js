@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const InitialValue = {
-    user: { name: "", userId: "" ,password:""}
+    user: { name: "", userId: ""}
 }
 
 
@@ -13,7 +13,8 @@ export const UserSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             localStorage.setItem('user', JSON.stringify(action.payload));
-            state.user = action.payload;
+            state.user.name = action.payload.name;
+            state.user.userId = action.payload._id;
         },
         removeUser: (state, action) => {
             localStorage.removeItem('user');

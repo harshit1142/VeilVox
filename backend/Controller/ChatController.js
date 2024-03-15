@@ -8,7 +8,7 @@ const userModel = require('../Model/UserModel');
         const userId=req.params.id;
         if (otherUserId === userId){
             res.json({
-                status: 200,
+                status: 201,
                 meassage: "Invalid Chat",
                 data: []
             })
@@ -28,7 +28,7 @@ const userModel = require('../Model/UserModel');
         if(isChat.length >0){
         
             res.json({
-                status: 200,
+                status: 201,
                 meassage: "Chat Found",
                 data: isChat[0]
             })
@@ -45,7 +45,7 @@ const userModel = require('../Model/UserModel');
 
             
             res.json({
-                status: 200,
+                status: 201,
                 meassage: "Chat Created",
                 data: fullChat
             })
@@ -74,7 +74,7 @@ const userModel = require('../Model/UserModel');
         })
 
         res.json({
-            status: 200,
+            status: 201,
             meassage: "All Chats",
             data: result
         })
@@ -114,7 +114,7 @@ async function createGroupChat(req, res) {
     .populate("users","-password -post")
     .populate("groupAdmin","-password")
        res.json({
-           status: 200,
+           status: 201,
            meassage: "GroupChat Created",
            data: fullGroupChat
        })
@@ -143,7 +143,7 @@ async function renameChat(req,res){
 
       if (updateChat) {
           res.json({
-              status: 200,
+              status: 201,
               meassage: "GroupChat Renamed",
               data: updateChat
           })
@@ -180,7 +180,7 @@ async function addToGroup(req,res){
 
       if (updateChat) {
           res.json({
-              status: 200,
+              status: 201,
               meassage: "User Added",
               data: addedUser
           })
@@ -216,7 +216,7 @@ async function removeFromGroup(req,res){
 
       if (updateChat) {
           res.json({
-              status: 200,
+              status: 201,
               meassage: "User Removed",
               data: removeUser
           })

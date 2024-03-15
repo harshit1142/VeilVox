@@ -35,7 +35,7 @@ export default function Register() {
         const res = await response.json();
         if (res.status === 201) {
             alert("Registered Successfully!!");
-            dispatch(setUser(res.user));
+            dispatch(setUser(res.data));
             history.push("/main");
 
         } else {
@@ -45,7 +45,7 @@ export default function Register() {
         }
     }
 
-    if (!(user.name === "")) {
+    if (!(user === undefined || user == null || user.name === "")) {
         history.push("/main");
     }
 
