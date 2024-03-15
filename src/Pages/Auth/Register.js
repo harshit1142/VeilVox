@@ -57,7 +57,7 @@ export default function Register() {
               </div>
               <form>
               <div className="input_box">
-                  <input type="text" id="user" name="user" autoComplete="off" value={data.name} onChange={handleChange} className="input-field" required />
+                  <input type="text" id="user" name="user" autoComplete="off" value={data.user} onChange={handleChange} className="input-field" required />
                   <label htmlFor="user" className="label">Username </label>
                   <i className="bx bx-user icon" />
               </div>

@@ -47,12 +47,23 @@ async function getAllPosts(req, res){
     }
 }
 
+// returns all the posts of the user and the total sum of upvotes and downvotes of all posts
 async function getUserPost(req, res){
     try{
         const userid = req.params.id;
         const posts = await userModel.findOne({ _id: userid }).populate({path:'post', model: 'postModel'});
+        
+        var up=0,down=0;
+        for(var i=0;i<posts.post.length;i++){
+          up+=posts.post[i].upvote.length;
+          down+=posts.post[i].downvote.length;
+        }
 
-        res.status(201).json(posts.post);
+        res.status(201).json({
+            post:posts.post,
+            upvote:up,
+            downvote:down
+        });
 
     } catch(error){
         
@@ -170,6 +181,7 @@ async function getUpDownVote(req, res){
         .populate({path:"downvote", model: "userModel"});
 
         res.status(201).json({
+            msg: "post details",
             postid: postid,
             upvote: post.upvote.length,
             downvote: post.downvote.length
