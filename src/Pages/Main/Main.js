@@ -107,6 +107,9 @@ export default function Main() {
     }
   }
 
+  if ((user===null || user.name === "")) {
+    history.push("/login");
+  }
 
   useEffect(()=>{
     getAllPost();

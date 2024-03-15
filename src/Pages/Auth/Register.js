@@ -45,9 +45,10 @@ export default function Register() {
         }
     }
 
-    if (!(user === undefined || user == null || user.name === "")) {
+    if (!(user === null || user.name === "")) {
         history.push("/main");
     }
+    
 
   return (
       <div className="wrapper">

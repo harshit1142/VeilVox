@@ -43,7 +43,7 @@ export default function Login() {
         }
     }
      
-    if(!(user.name==="")){
+    if(!(user ===null  || user.name==="")){
         history.push("/main");
     }
     
