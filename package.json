@@ -4,6 +4,10 @@
   "private": true,
   "proxy": "http://localhost:4000",
   "dependencies": {
+    "@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly": "^7.23.7",
+    "@babel/plugin-transform-class-properties": "^7.23.3",
+    "@babel/plugin-transform-class-static-block": "^7.23.4",
+    "@babel/plugin-transform-classes": "^7.23.8",
     "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -38,5 +42,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "@csstools/postcss-is-pseudo-class": "^4.0.5",
+    "postcss-dir-pseudo-class": "^8.0.1",
+    "postcss-pseudo-class-any-link": "^9.0.1"
   }
 }
