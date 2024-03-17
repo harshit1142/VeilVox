@@ -14,6 +14,8 @@ import Main from './Pages/Main/Main';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from './Redux/UserRedux';
+import Feed from './Pages/Feed/Feed';
+import Post from './Pages/Post/Post';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +33,8 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/main" component={Main} />
+          <Route path="/feeds" component={Feed} />
+          <Route path="/feed/:id" component={Post} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

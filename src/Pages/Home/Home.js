@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 export default function Home() {
     
   return (
-    <div className='main'>
-       <header>
+    <div className='main2'>
+       <header className='head'>
         <nav>
             <div className="logo">VeilVox</div>
             <ul>

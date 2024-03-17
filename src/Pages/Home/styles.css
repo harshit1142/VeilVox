@@ -1,17 +1,16 @@
-.main {
+.main2 {
     margin: 0;
     font-family: Arial, sans-serif;
     background-image: url('background-image.jpg');
     background-size: cover;
     width: 100%;
     height: 100vh;
-  
 }
 
-header {
+.head {
     
     background-color: #00224cd9;
-    color: #fff;
+    color: #954343;
     padding: 20px 0;
 }
 
