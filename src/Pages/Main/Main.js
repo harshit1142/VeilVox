@@ -9,6 +9,11 @@ export default function Main() {
   const user=useSelector(selectUser)
   const [allPost,setAllPost]=useState([]);
   const [userPosts,setUserPosts]=useState([]);
+  
+  useEffect(() => {
+    getAllPost();
+    getUserPost();
+  }, [])
 
  async function getAllPost(){
    const response = await fetch("http://localhost:4000/post")
@@ -108,13 +113,9 @@ export default function Main() {
   }
 
   if ((user===null || user.name === "")) {
-    history.push("/login");
+    return history.push("/login");
   }
 
-  useEffect(()=>{
-    getAllPost();
-    getUserPost();
-  },[])
 
 
   return (

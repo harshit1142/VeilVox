@@ -1,7 +1,7 @@
 const express = require('express');
 const postRoutes = express.Router();
 
-const { getAllPosts, createPost, getUserPost, postUpvote, postDownvote, getUpDownVote } = require('../Controller/PostController');
+const { getAllPosts, createPost, getUserPost, postUpvote, postDownvote, getUpDownVote, getAPost } = require('../Controller/PostController');
 
 postRoutes.get('/', getAllPosts);
 
@@ -10,6 +10,10 @@ postRoutes
 .route('/:id')
 .post(createPost)
 .get(getUserPost);
+
+postRoutes
+.route("/single/:id")
+.get(getAPost)
 
 // routes for up/downvotes:
 postRoutes

@@ -36,7 +36,7 @@ export default function Login() {
         if (res.status === 201) {
             alert("Login Successfully!!");
             dispatch(setUser(res.data));
-            history.push("/main");
+            history.push("/feeds");
 
         } else {
             alert("Error Occured" + res.message);
@@ -44,7 +44,7 @@ export default function Login() {
     }
      
     if(!(user ===null  || user.name==="")){
-        history.push("/main");
+       return history.push("/feeds");
     }
     
 

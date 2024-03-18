@@ -2,22 +2,24 @@ const fs = require('fs')
 const multer  = require('multer');
 
 // uploading locally first using multer
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, '/tmp/my-uploads')
-//     },
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '/tmp/my-uploads')
+    },
 
-//     filename: function (req, file, cb) {
-//       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-//       cb(null, file.fieldname + '-' + uniqueSuffix)
-//     }
-// })
-// const upload = multer({ storage: storage })
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+})
+const upload = multer({ storage: storage })
 
 async function handleUpload(req, res){
     try {
-        const imagePath = req.file.path;
-
+        // const {file}=req.file.path;
+        console.log(req.file);
+        console.log(req.body);
+        const imagePath = req.file[0].path;
         const uploadResult = await uploadImageToCloudinary(imagePath);
 
         // If upload to Cloudinary is successful, unlink the file

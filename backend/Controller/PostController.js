@@ -76,6 +76,30 @@ async function getUserPost(req, res){
     }
 
 }
+async function getAPost(req, res){
+    try{
+        const postId = req.params.id;
+
+        const post = await postModel.findOne({ _id: postId }).populate("comment");
+        
+       
+
+        res.json({
+            status:201,
+            data:post
+        });
+
+     
+     
+
+    } catch(error){
+        
+        res.json({
+            msg : "error"+error
+        })
+    }
+
+}
 
 async function postUpvote(req, res){
     try{
@@ -112,7 +136,8 @@ async function postUpvote(req, res){
             );
             
 
-        res.status(201).json({
+        res.json({
+            status:201,
             msg: "Upvoted successfully",
             data: result
         })
@@ -161,7 +186,8 @@ async function postDownvote(req, res){
             );
         
 
-        res.status(201).json({
+        res.json({
+            status: 201,
             msg: "Downvoted successfully",
             data: result
         })
@@ -183,7 +209,8 @@ async function getUpDownVote(req, res){
         .populate({path:'upvote', model: 'userModel'})
         .populate({path:"downvote", model: "userModel"});
 
-        res.status(201).json({
+        res.json({
+            status: 201,
             msg: "post details",
             postid: postid,
             upvote: post.upvote.length,
@@ -201,4 +228,4 @@ async function getUpDownVote(req, res){
 
 
 
-module.exports = { getAllPosts, createPost, getUserPost, postUpvote, postDownvote, getUpDownVote };
+module.exports = { getAllPosts, createPost, getUserPost, postUpvote, postDownvote, getUpDownVote,getAPost };

@@ -13,7 +13,7 @@ async function createComments(req, res){
         const commentId = comment._id;
         const postid = req.params.id;
 
-        await postModel.updateOne({
+        await postModel.findByIdAndUpdate({
             _id: postid
         },
         {
@@ -23,7 +23,8 @@ async function createComments(req, res){
         }
         );
 
-        res.status(201).json({
+        res.json({
+            status:201,
             msg : "Comment created sucessfully",
             data : comment
         })

@@ -24,6 +24,18 @@
 
     --sticky-top-left: 5.4rem;
     --sticky-top-right: -18rem;
+
+
+    --Moderate-blue: hsl(238, 40%, 52%);
+    --Soft-Red: hsl(358, 79%, 66%);
+    --Light-grayish-blue: hsl(239, 57%, 85%);
+    --Pale-red: hsl(357, 100%, 86%);
+
+    --Dark-blue: hsl(212, 24%, 26%);
+    --Grayish-Blue: hsl(211, 10%, 45%);
+    --Light-gray: hsl(223, 19%, 93%);
+    --Very-light-gray: hsl(228, 33%, 97%);
+    --White: hsl(0, 0%, 100%);
 }
 
 *,
@@ -38,12 +50,12 @@
     border: none;
 }
 
-/* .main {
+body {
     font-family: "Poppins", sans-serif;
     color: var(--color-dark);
     background: var(--color-light);
     overflow-x: hidden;
-} */
+}
 
 
 .container {
@@ -694,7 +706,353 @@ main .container .left .profile {
         transform: scale(0.6);
     }
 }
-.handle{
-    color: rgb(26, 31, 30);
-    text-shadow: 2px 2px 4px rgb(121, 227, 211);
+
+.right {
+    grid-row: 2;
+    width: 430%;
+    font-size: 0.9rem;
+}
+
+
+
+
+
+.right p {
+    line-height: 1.5;
+}
+
+.right a {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.right button {
+    cursor: pointer;
+}
+
+.right button:hover {
+    filter: saturate(80%);
+}
+
+.right .bu-primary {
+    background-color: var(--Moderate-blue);
+    color: var(--White);
+    border: none;
+    padding: .75rem 1.5rem;
+    border-radius: 4px;
+}
+
+.right .comment-section {
+    padding: 0 1rem;
+}
+
+.right .container {
+    border-radius: 8px;
+    padding: 1.5rem;
+    background-color: var(--White);
+}
+
+.right .comments-wrp {
+    display: flex;
+    flex-direction: column;
+}
+
+.right .comment-section {
+    max-width: 75ch;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.right .comment {
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-areas:
+        "score user controls"
+        "score comment comment"
+        "score comment comment"
+    ;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    row-gap: 1rem;
+    color: var(--Grayish-Blue);
+}
+
+.right .c-score {
+    color: var(--Moderate-blue);
+    font-weight: 500;
+    grid-area: score;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: .75rem;
+    padding-top: .5rem;
+    width: 1rem;
+    box-sizing: content-box;
+    background-color: var(--Very-light-gray);
+    border-radius: 8px;
+    align-self: flex-start;
+}
+
+.right .score-control {
+    width: 100%;
+    cursor: pointer;
+    object-fit: scale-down;
+}
+
+.right .c-text {
+    grid-area: comment;
+    width: 100%;
+}
+
+.right .c-user {
+    width: 100%;
+    grid-area: user;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.right .usr-name {
+    color: var(--Dark-blue);
+    font-weight: 700;
+}
+
+.right .usr-img {
+    height: 2rem;
+    width: 2rem;
+}
+
+.right .c-controls {
+    display: flex;
+    gap: 1rem;
+    color: var(--Moderate-blue);
+    grid-area: controls;
+    align-self: center;
+    justify-self: flex-end;
+}
+
+.right .c-controls a {
+    align-items: center;
+}
+
+.right .edit,
+.right .reply {
+    color: var(--Moderate-blue);
+}
+
+.right .edit {
+    display: none;
+}
+
+.right .delete {
+    color: var(--Soft-Red);
+    display: none;
+}
+
+.right .control-icon {
+    margin-right: .5rem;
+}
+
+.right .replies {
+    display: flex;
+    margin-left: 2.5rem;
+    padding-left: 2.4rem;
+    border-left: 1px solid var(--Light-grayish-blue);
+}
+
+.right .reply-to {
+    color: var(--Moderate-blue);
+    font-weight: 500;
+}
+
+.right .reply-input {
+    display: grid;
+    margin-bottom: 1rem;
+    grid-template-areas: "avatar input button";
+    grid-template-columns: min-content auto min-content;
+    justify-items: center;
+    gap: 1rem;
+    min-height: 9rem;
+}
+
+.right .reply-input img {
+    grid-area: avatar;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.right .reply-input button {
+    grid-area: button;
+    align-self: flex-start;
+}
+
+.right .reply-input textarea {
+    grid-area: input;
+    padding: 1rem;
+    width: 100%;
+    border: 1px solid var(--Light-gray);
+    border-radius: 4px;
+    resize: none;
+}
+
+.right .this-user .usr-name::after {
+    font-weight: 400;
+    content: "you";
+    color: var(--White);
+    background-color: var(--Moderate-blue);
+    padding: 0 .4rem;
+    padding-bottom: .2rem;
+    font-size: .5rem;
+    margin-left: .5rem;
+    border-radius: 2px;
+}
+
+.right .this-user .reply {
+    display: none;
+}
+
+.right .this-user .edit,
+.right .this-user .delete {
+    display: flex;
+}
+
+@media screen and (max-width:900px) {
+    .right {
+        width: 106%;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .right {
+        width: 106%;
+        font-size: 0.6rem;
+    }
+
+    .right .container {
+        padding: .75rem;
+    }
+
+    .right .replies {
+        padding-left: 1rem;
+        margin-left: .5rem;
+    }
+
+    .right .comment {
+        grid-template-areas:
+            "user user user"
+            "comment comment comment"
+            "score ... controls"
+        ;
+
+        gap: .5rem;
+    }
+
+    .right .c-score {
+        flex-direction: row;
+        width: auto;
+    }
+
+    .right .reply-input {
+        grid-template-areas:
+            "input input input"
+            "avatar ... button"
+        ;
+        grid-template-rows: auto min-content;
+        align-items: center;
+        gap: .5rem;
+    }
+
+    .right .reply-input img {
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .right .reply-input textarea {
+        height: 6rem;
+        padding: .5rem;
+        align-self: stretch;
+    }
+}
+
+
+
+
+.right .modal-wrp {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.right .modal {
+    padding: 1.5rem;
+    max-width: 32ch;
+    display: grid;
+    gap: 1rem;
+    grid-template-areas:
+        "heading heading"
+        "body body"
+        "no yes";
+}
+
+.right .invisible {
+    display: none;
+}
+
+.right .modal h3 {
+    grid-area: heading;
+    color: var(--Dark-blue);
+}
+
+.right .modal button {
+    color: var(--White);
+    padding: .75rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+}
+
+.right .modal p {
+    grid-area: body;
+    color: var(--Grayish-Blue);
+    line-height: 1.5;
+}
+
+.right .modal .yes {
+    grid-area: yes;
+    background-color: var(--Soft-Red);
+}
+
+.right .modal .no {
+    background-color: var(--Grayish-Blue);
+    grid-area: no;
+}
+
+
+.right .c-score {
+    display: none;
+}
+
+.right .c-controls .delete{
+    display: none;
+}
+
+.right .c-controls .edit{
+    display: none;
+}
+
+.com{
+    padding: 30px;
+    width: 100%;
+    height: auto;
+    background-color: rgba(106, 71, 71, 0.406);
+    color: black;
 }

@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from './Redux/UserRedux';
 import Feed from './Pages/Feed/Feed';
 import Post from './Pages/Post/Post';
+import CreatePost from './Components/CreatePost';
 
 function App() {
   const dispatch = useDispatch();
@@ -32,9 +33,9 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/main" component={Main} />
           <Route path="/feeds" component={Feed} />
-          <Route path="/feed/:id" component={Post} />
+          <Route path="/feed/:postId" component={Post} />
+          <Route path="/create/post" component={CreatePost} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>

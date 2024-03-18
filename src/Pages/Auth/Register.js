@@ -36,7 +36,7 @@ export default function Register() {
         if (res.status === 201) {
             alert("Registered Successfully!!");
             dispatch(setUser(res.data));
-            history.push("/main");
+            history.push("/feeds");
 
         } else {
             if (res.message.indexOf("E11000")) alert("User Already Exist!!")
@@ -46,7 +46,7 @@ export default function Register() {
     }
 
     if (!(user === null || user.name === "")) {
-        history.push("/main");
+        return history.push("/feeds");
     }
     
 
