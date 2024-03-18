@@ -2,6 +2,8 @@ const express=require('express')
 const DB=require('./db')
 const cookies = require("cookie-parser");
 const cors = require("cors");
+const fs = require('fs')
+const multer  = require('multer');
 
 const app=express();
 
@@ -44,10 +46,10 @@ const postRoutes = require('./Routes/postRoutes');
 const commentRoutes = require('./Routes/commentRoutes');
 const replyRoutes = require('./Routes/replyRoutes');
 const messageRoutes = require('./Routes/messageRoutes');
+const uploadRoutes = require('./Routes/uploadRoutes');
 
 
-
-
+app.use('/uploads', uploadRoutes);
 app.use("/chat",chatRoutes)
 app.use("/auth",authRoutes);
 app.use('/post', postRoutes);
