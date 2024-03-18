@@ -66,9 +66,9 @@ export default function PostBox({user,caption,ele}) {
                         {/* <span className="hash-tag">#lifestyle</span> */}
                     </p>
                 </div>
-                <div className="photo">
+                {/* <div className="photo">
                 <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT83d12zUgnQ-vm5x8vqDq3j8mscMaxf18_BXTubhb3hcNBjfP5Ek7gzUtPnF9KuWcRvqVV" alt="" />
-                </div>
+                </div> */}
 
 
                 <div className="action-buttons">

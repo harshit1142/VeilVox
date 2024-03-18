@@ -7,10 +7,11 @@ const multer  = require('multer');
 const bodyParser=require('body-parser')
 
 const app=express();
+const path = require('path');
 
 app.use(express.json())
-app.use(bodyParser.urlencoded({extended:false}))
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 

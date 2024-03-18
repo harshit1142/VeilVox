@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import './create-post.css'
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function CreatePost() {
-
+    const history = useHistory();
+    const selectUser = (state) => state.UserReducer.user;
+    const user = useSelector(selectUser);
    const [create,setCreate]=useState({
     file:"",
     description:""
@@ -12,7 +16,7 @@ export default function CreatePost() {
    function handleChange(e){
   
      if(e.target.name==="file"){
-         const filed = Array.from(e.target.files[0]);
+         const filed = (e.target.files);
          setImg(filed)
         //  const reader = new FileReader();
         //  console.log(e.target.files[0]);
@@ -41,7 +45,8 @@ export default function CreatePost() {
    }
    console.log(img);
    console.log(create.description);
-   sendFile();
+//    sendFile();
+sendPost();
       
 
 }
@@ -49,39 +54,43 @@ export default function CreatePost() {
     
        const form=new FormData();
        form.append('description',create.description)
-       form.append('file',img)
-      
+       form.append('file',img[0])
+       console.log(form);
+       console.log(img[0]);
         const response = await fetch(`http://localhost:4000/uploads/`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
-            body: img
+            body: img[0]
             
         })
         const res = await response.json();
         if (res.status === 201) {
-            alert("done")   
+            alert("Posted")  
+            
         } else {
             alert("Error Occured" + res.message);
         }
     }
 
-    async function sendPost(e) {
-        e.preventDefault();
-        const response = await fetch(`http://localhost:4000/uploads`, {
+    async function sendPost() {
+       
+        const response = await fetch(`http://localhost:4000/post/${user.userId}`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
             body: JSON.stringify({
-                file: create.file
+                caption:create.description,
+                name:user.name
             })
         })
         const res = await response.json();
         if (res.status === 201) {
-            setImg(res.data);
-            console.log(img);
+          alert("Posted !!")
+            history.push("/feeds") 
+
         } else {
             alert("Error Occured" + res.message);
         }

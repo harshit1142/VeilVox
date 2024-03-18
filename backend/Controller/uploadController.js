@@ -17,9 +17,9 @@ const upload = multer({ storage: storage })
 async function handleUpload(req, res){
     try {
         // const {file}=req.file.path;
-        console.log(req.file);
-        console.log(req.body);
-        const imagePath = req.file[0].path;
+        // console.log(req.file);
+        // console.log(req.body[0].path);
+        const imagePath = req.body[0].path;
         const uploadResult = await uploadImageToCloudinary(imagePath);
 
         // If upload to Cloudinary is successful, unlink the file
