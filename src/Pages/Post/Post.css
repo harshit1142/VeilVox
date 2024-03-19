@@ -110,7 +110,8 @@ img {
 
 nav {
     width: 100%;
-    background: var(--color-white);
+    background: #00224cd9;
+    color: white;
     padding: 0.7rem 0;
     position: fixed;
     top: 0;
@@ -1055,4 +1056,8 @@ main .container .left .profile {
     height: auto;
     background-color: rgba(106, 71, 71, 0.406);
     color: black;
+}
+
+.ll{
+    color: red;
 }

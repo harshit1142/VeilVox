@@ -1,87 +1,85 @@
-import React, { useState } from 'react'
-import './create-post.css'
+import React, { useState } from 'react';
+import './create-post.css';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function CreatePost() {
+   const history=useHistory();
+    const selectUser = (state) => state.UserReducer.user;
+    const user = useSelector(selectUser);
+    const [loader,setLoader]=useState(false);
+  const [create, setCreate] = useState({
+    file: null,
+    description: '',
+    image:""
+  });
+  const [img,setImg]=useState("");
+  // console.log(create);
 
-   const [create,setCreate]=useState({
-    file:"",
-    description:""
-   })
-   const [img,setImg]=useState([]);
-
-   function handleChange(e){
-  
-     if(e.target.name==="file"){
-         const filed = Array.from(e.target.files[0]);
-         setImg(filed)
-        //  const reader = new FileReader();
-        //  console.log(e.target.files[0]);
-
-        //  reader.onload = function (event) {
-        //      const fileContent = event.target.result;
-        //     //  console.log('File content:', event.target.result);
-        //      setImg(fileContent)
-        //  };
-
-        //  reader.readAsDataURL(file);
-     }else{
-         setCreate({ ...create, [e.target.name]: e.target.value })
-     }
-   
-   }
-
-
-
-
-   async function handleSubmit(e){
-       e.preventDefault();
-    if(!img || create.description===""){
-           alert('Invalid Response !!');
-            return;
-   }
-   console.log(img);
-   console.log(create.description);
-   sendFile();
-      
-
-}
-    async function sendFile() {
-    
-       const form=new FormData();
-       form.append('description',create.description)
-       form.append('file',img)
-      
-        const response = await fetch(`http://localhost:4000/uploads/`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: img
-            
-        })
-        const res = await response.json();
-        if (res.status === 201) {
-            alert("done")   
-        } else {
-            alert("Error Occured" + res.message);
-        }
+  function handleChange(e) {
+    if (e.target.name === 'file') {
+      const file = e.target.files[0];
+      setCreate({ ...create, "file": file });
+    } else {
+      setCreate({ ...create, [e.target.name]: e.target.value });
     }
+  }
 
-    async function sendPost(e) {
-        e.preventDefault();
-        const response = await fetch(`http://localhost:4000/uploads`, {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!create.file || create.description === '') {
+      alert('Invalid Response!! Please select an image and add a description.');
+      return;
+    }
+    setLoader(true);
+    sendFile();
+    setLoader(false);
+    
+  }
+
+  async function sendFile() {
+    const formData = new FormData();
+    formData.append('file', create.file);
+
+    try {
+      const response = await fetch('http://localhost:4000/uploads/', {
+        method: 'POST',
+        body: formData
+      });
+
+      const res = await response.json().then(response =>{
+   
+        setImg(response.data);
+        localStorage.setItem('image',(response.data));
+        // console.log(response.data);
+        sendPost();
+      }).catch(error=>{
+        alert('Error: ' + error);
+      });
+     
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error occurred while uploading the file');
+    }
+  }
+      async function sendPost() {
+        const url=(localStorage.getItem('image'));
+        const response = await fetch(`http://localhost:4000/post/${user.userId}`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
             body: JSON.stringify({
-                file: create.file
+                name:user.name,
+                caption:create.description,
+                imageURL:url,
             })
         })
+        localStorage.removeItem('image');
         const res = await response.json();
         if (res.status === 201) {
-            setImg(res.data);
-            console.log(img);
+            alert("Posted!!")
+            history.push("/feeds");
         } else {
             alert("Error Occured" + res.message);
         }
@@ -89,21 +87,37 @@ export default function CreatePost() {
 
   return (
     <div className='top'>
-      <div id="container">
-          <h2>Create Post</h2>
-          <label for="upload" class="upload-label">Choose Image</label>
-              <input type="file" id="upload" name='file'  onChange={handleChange} accept="image/*" />
-              {img.length>0
-                  ? <>
-              
-                  <div id="imagePreview">
-                      <div id="previewImage" >{img[0].name}</div>
-                  </div>
-                  </>
-              :""}
-              <textarea id="description" placeholder="Add description" onChange={handleChange} name='description' ></textarea>
-              <button id="uploadBtn" onClick={handleSubmit}>Post</button>
+      <div id='container'>
+        <h2>Create Post</h2>
+        <label htmlFor='upload' className='upload-label'>
+          Choose Image
+        </label>
+        <input
+          type='file'
+          id='upload'
+          name='file'
+          onChange={handleChange}
+          accept='image/*'
+        />
+        {create.file && (
+          <div id='imagePreview'>
+            <div id='previewImage'>{create.file.name}</div>
+          </div>
+        )}
+        <textarea
+          id='description'
+          placeholder='Add description'
+          onChange={handleChange}
+          name='description'
+          value={create.description}
+        ></textarea>
+        {loader ?  <button id='uploadBtn' disabled>
+          Posting....
+        </button>: <button id='uploadBtn' onClick={handleSubmit}>
+          Post
+        </button>}
+       
       </div>
-      </div>
-  )
+    </div>
+  );
 }

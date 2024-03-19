@@ -4,13 +4,14 @@ const cookies = require("cookie-parser");
 const cors = require("cors");
 const fs = require('fs')
 const multer  = require('multer');
-const bodyParser=require('body-parser')
+const bodyParser=require('body-parser');
+const path = require('path');
 
 const app=express();
 
-app.use(express.json())
-app.use(bodyParser.urlencoded({extended:false}))
-app.use(bodyParser.json())
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
     next();
 })
 
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.listen(4000,()=>{

@@ -1,10 +1,18 @@
 import React from 'react'
 import '../Pages/Feed/Feed.css'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function PostBox({user,caption,ele}) {
-
-
+     const history=useHistory();
+    
+    //  console.log(ele.imageURL);
+          var url=`"${ele.imageURL}"`
+        //   console.log(typeof url +" "+url);
+        while(url.startsWith('"') && url.endsWith('"')){
+            url=url.slice(1,-1);
+        }
+        // console.log(url);
+    const imgurl=(ele.imageURL)?(url):"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT83d12zUgnQ-vm5x8vqDq3j8mscMaxf18_BXTubhb3hcNBjfP5Ek7gzUtPnF9KuWcRvqVV";
     async function upvotePost(e) {
         e.preventDefault();
         const response = await fetch(`http://localhost:4000/post/upvote/${ele._id}`, {
@@ -18,8 +26,9 @@ export default function PostBox({user,caption,ele}) {
         })
         const res = await response.json();
         if (res.status === 201) {
-            alert("Upvoted Successfully!!");
-            // history.push("/main");
+            // alert("Upvoted Successfully!!");
+            window.location.reload();
+          
         } else {
             alert("Error Occured" + res.message);
         }
@@ -38,8 +47,8 @@ export default function PostBox({user,caption,ele}) {
         })
         const res = await response.json();
         if (res.status === 201) {
-            alert("Downvoted Successfully!!");
-            // history.push("/main");
+            // alert("Downvoted Successfully!!");
+            window.location.reload();
         } else {
             alert("Error Occured" + res.message);
         }
@@ -55,7 +64,7 @@ export default function PostBox({user,caption,ele}) {
                         <img src="https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg" alt="" />
                         </div>
                         <div className="info">
-                            <h3>{user.name}</h3>
+                            <h3>{ele.name}</h3>
                             {/* <small>Dubai, 15 MINUTES AGO</small> */}
                         </div>
                     </div>
@@ -67,7 +76,7 @@ export default function PostBox({user,caption,ele}) {
                     </p>
                 </div>
                 <div className="photo">
-                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT83d12zUgnQ-vm5x8vqDq3j8mscMaxf18_BXTubhb3hcNBjfP5Ek7gzUtPnF9KuWcRvqVV" alt="" />
+                <img src={imgurl} alt="" />
                 </div>
 
 

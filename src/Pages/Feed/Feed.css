@@ -698,3 +698,7 @@ main .container .left .profile {
     color: rgb(26, 31, 30);
     text-shadow: 2px 2px 4px rgb(121, 227, 211);
 }
+
+.ll{
+    color: red;
+}

@@ -31,7 +31,7 @@ export default function Home() {
     </section>
     
     <footer>
-        <p>Made with &#10084; By Team Fight Club.</p>
+        <p>Made with &#10084; By Team Web Titans.</p>
         {/* <!-- <p>&copy; 2024 VeilVox. All rights reserved.</p> --> */}
     </footer>
     </div>

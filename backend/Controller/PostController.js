@@ -5,13 +5,14 @@ const mongoose = require('mongoose');
 async function createPost(req, res){
     try{
         const body = req.body;
+        // console.log(body);
         const userid = req.params.id;
         const post = await postModel.create(body);
         // const postId = new mongoose.Types.ObjectId(post.id);
         const postId = post._id;
         
 
-        await userModel.updateOne({
+        await userModel.findByIdAndUpdate({
             _id: userid
         },
         {
@@ -22,7 +23,8 @@ async function createPost(req, res){
         );
 
 
-        res.status(201).json({
+        res.json({
+            status:201,
             msg : "Post created sucessfully",
             data : post
         })
@@ -37,7 +39,10 @@ async function createPost(req, res){
 
 async function getAllPosts(req, res){
     try {
-        const posts = await postModel.find({}).populate("comment");
+        const posts = await postModel.find({}).sort({ timestamp: -1 }).populate({
+            path: "comment",
+            options: { sort: { timestamp: -1 } }
+        });
         res.status(201).json(posts);
     } catch (error) {
         res.json({

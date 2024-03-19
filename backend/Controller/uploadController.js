@@ -1,31 +1,26 @@
 const fs = require('fs')
 const multer  = require('multer');
 
-// uploading locally first using multer
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '/tmp/my-uploads')
-    },
-
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
-    }
-})
-const upload = multer({ storage: storage })
 
 async function handleUpload(req, res){
     try {
-        // const {file}=req.file.path;
-        console.log(req.file);
-        console.log(req.body);
-        const imagePath = req.file[0].path;
-        const uploadResult = await uploadImageToCloudinary(imagePath);
+        
+        // console.log(req.file.path);
+        // console.log(req.file);
 
-        // If upload to Cloudinary is successful, unlink the file
-        fs.unlinkSync(imagePath);
+        if(req.file){
+            const imagePath = req.file.path;
+            
+            const uploadResult = await uploadImageToCloudinary(req.file.path);
+        //    console.log(uploadResult.url);
+            // If upload to Cloudinary is successful, unlink the file
+            // fs.unlinkSync(imagePath);
+    
+            res.json({ status : 201, message: 'File uploaded successfully using multer and Cloudinary', data: uploadResult.url });
+        }else{
+            res.status(500).json({ error: 'Internal server error' });
 
-        res.json({ status : 201, message: 'File uploaded successfully using multer and Cloudinary', data: uploadResult });
+        }
     } catch (error) {
         
         console.error('Error uploading file:', error);

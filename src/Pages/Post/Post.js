@@ -4,7 +4,7 @@ import Navbar from '../../Components/Navbar'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import PostBox from '../../Components/PostBox';
 
 
@@ -48,8 +48,7 @@ export default function Post() {
         })
         const res = await response.json();
         if (res.status === 201) {
-            alert("Comment Added!!");
-            history.push("/feeds");
+            window.location.reload();
         } else {
             alert("Error Occured" + res.message);
         }
@@ -100,30 +99,30 @@ export default function Post() {
 
                         {/* <!----------------------SideBar--------------> */}
                         <div className="sidebar">
-                            <a className="menu-item active">
+                            <Link to="/feeds" className="menu-item active">
                                 <span><i className="uil uil-home"></i></span>
                                 <h3>Home</h3>
-                            </a>
-
+                            </Link>
+{/* 
                             <a className="menu-item">
                                 <span><i className="uil uil-compass"></i></span>
                                 <h3>Explore</h3>
-                            </a>
+                            </a> */}
 
-                            <a className="menu-item" id="messages-notifications">
+                            <a className="menu-item ll" id="messages-notifications">
                                 <span><i className="uil uil-envelope"></i></span>
                                 <h3>Message</h3>
                             </a>
 
-                            <a className="menu-item" id="theme">
+                            <a className="menu-item ll" id="theme">
                                 <span><i className="uil uil-palette"></i></span>
                                 <h3>Theme</h3>
                             </a>
-
+{/* 
                             <a className="menu-item">
                                 <span><i className="uil uil-setting"></i></span>
                                 <h3>Settings</h3>
-                            </a>
+                            </a> */}
                         </div>
 
                         <label className="btn btn-primary" for="create-post">Create Post</label>

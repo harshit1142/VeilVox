@@ -98,30 +98,30 @@ export default function Feed() {
 
                         {/* <!----------------------SideBar--------------> */}
                         <div className="sidebar">
-                            <a className="menu-item active">
+                            <Link to="/feeds" className="menu-item active">
                                 <span><i className="uil uil-home"></i></span>
                                 <h3>Home</h3>
-                            </a>
+                            </Link>
 
-                            <a className="menu-item">
+                            {/* <a className="menu-item">
                                 <span><i className="uil uil-compass"></i></span>
                                 <h3>Explore</h3>
-                            </a>
+                            </a> */}
 
-                            <a className="menu-item" id="messages-notifications">
+                            <a className="menu-item ll" id="messages-notifications">
                                 <span><i className="uil uil-envelope"></i></span>
                                 <h3>Message</h3>
                             </a>
 
-                            <a className="menu-item" id="theme">
+                            <a className="menu-item ll" id="theme">
                                 <span><i className="uil uil-palette"></i></span>
                                 <h3>Theme</h3>
                             </a>
 
-                            <a className="menu-item">
+                            {/* <a className="menu-item">
                                 <span><i className="uil uil-setting"></i></span>
                                 <h3>Settings</h3>
-                            </a>
+                            </a> */}
                         </div>
 
                         <Link to="/create/post" className="btn btn-primary" for="create-post">Create Post</Link>
