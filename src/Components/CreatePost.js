@@ -1,9 +1,12 @@
+
 import React, { useState } from 'react';
 import './create-post.css';
+
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function CreatePost() {
+
    const history=useHistory();
     const selectUser = (state) => state.UserReducer.user;
     const user = useSelector(selectUser);
@@ -22,8 +25,10 @@ export default function CreatePost() {
       setCreate({ ...create, "file": file });
     } else {
       setCreate({ ...create, [e.target.name]: e.target.value });
+
     }
   }
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -70,16 +75,20 @@ export default function CreatePost() {
                 "content-type": "application/json"
             },
             body: JSON.stringify({
+
                 name:user.name,
                 caption:create.description,
                 imageURL:url,
+
             })
         })
         localStorage.removeItem('image');
         const res = await response.json();
         if (res.status === 201) {
+
             alert("Posted!!")
             history.push("/feeds");
+
         } else {
             alert("Error Occured" + res.message);
         }

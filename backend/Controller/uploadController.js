@@ -4,9 +4,7 @@ const multer  = require('multer');
 
 async function handleUpload(req, res){
     try {
-        
-        // console.log(req.file.path);
-        // console.log(req.file);
+
 
         if(req.file){
             const imagePath = req.file.path;

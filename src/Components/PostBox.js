@@ -75,9 +75,11 @@ export default function PostBox({user,caption,ele}) {
                         {/* <span className="hash-tag">#lifestyle</span> */}
                     </p>
                 </div>
+
                 <div className="photo">
                 <img src={imgurl} alt="" />
                 </div>
+
 
 
                 <div className="action-buttons">

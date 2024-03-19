@@ -8,10 +8,11 @@ const bodyParser=require('body-parser');
 const path = require('path');
 
 const app=express();
+const path = require('path');
 
-app.use(express.json());
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(express.json())
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -34,7 +35,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 
 app.listen(4000,()=>{
