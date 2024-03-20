@@ -109,7 +109,7 @@ async function getAPost(req, res){
 async function postUpvote(req, res){
     try{
         const body = req.body;
-        const userid = body.userId;
+        const userid = body.userid;
         const postid = req.params.id;
         const post = await postModel.findOne({
             _id: postid
@@ -159,7 +159,7 @@ async function postUpvote(req, res){
 async function postDownvote(req, res){
     try{
         const body = req.body;
-        const userid = body.userId;
+        const userid = body.userid;
         const postid = req.params.id;
         const post = await postModel.findOne({
             _id: postid
