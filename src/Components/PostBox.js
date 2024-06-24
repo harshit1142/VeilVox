@@ -12,7 +12,7 @@ export default function PostBox({user,caption,ele}) {
             url=url.slice(1,-1);
         }
         // console.log(url);
-    const imgurl=(ele.imageURL)?(url):"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT83d12zUgnQ-vm5x8vqDq3j8mscMaxf18_BXTubhb3hcNBjfP5Ek7gzUtPnF9KuWcRvqVV";
+    const imgurl=(ele.imageURL)?(url):"https://static.vecteezy.com/system/resources/previews/012/942/784/non_2x/broken-image-icon-isolated-on-a-white-background-no-image-symbol-for-web-and-mobile-apps-free-vector.jpg";
     async function upvotePost(e) {
         e.preventDefault();
         const response = await fetch(`http://localhost:4000/post/upvote/${ele._id}`, {
