@@ -19,7 +19,7 @@ export default function Feed() {
     }, [])
 
     async function getAllPost() {
-        const response = await fetch("http://localhost:4000/post")
+        const response = await fetch(`http://localhost:4000/post`)
         const res = await response.json();
         setAllPost(res);
     }
@@ -29,51 +29,11 @@ export default function Feed() {
     //     setUserPosts(res);
     // }
    
-    async function upvotePost(e) {
-        e.preventDefault();
-        const response = await fetch(`http://localhost:4000/post/upvote/postId`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                userid: user.userId
-            })
-        })
-        const res = await response.json();
-        if (res.status === 201) {
-            alert("Upvoted Successfully!!");
-            // history.push("/main");
-        } else {
-            alert("Error Occured" + res.message);
-        }
-    }
-    async function downvotePost(e) {
-        e.preventDefault();
-        const response = await fetch(`http://localhost:4000/post/downvote/postId`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                userid: user.userId
-            })
-        })
-        const res = await response.json();
-        if (res.status === 201) {
-            alert("Downvoted Successfully!!");
-            // history.push("/main");
-        } else {
-            alert("Error Occured" + res.message);
-        }
-    }
 
     if ((user === null || user.name === "")) {
         return history.push("/login");
 
     }
-
-
 
 
 
@@ -181,7 +141,7 @@ export default function Feed() {
 
                         <div className="feeds">
 
-                            { allPost && allPost.map((ele, ind) => {
+                            { allPost && allPost.map((ele, ind) => {    
                                 return <PostBox user={user} caption={ele.caption} ele={ele} key={ele._id}/>
                             })}
                         </div>

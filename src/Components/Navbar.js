@@ -9,7 +9,7 @@ export default function Navbar() {
     const history=useHistory();
 
     function logout(){
-        alert("Logout Successfully!!");
+        // alert("Logout Successfully!!");
         dispatch(removeUser());
         history.push("/");
     }

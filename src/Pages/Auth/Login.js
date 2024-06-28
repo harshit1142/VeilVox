@@ -34,7 +34,7 @@ export default function Login() {
         })
         const res = await response.json();
         if (res.status === 201) {
-            alert("Login Successfully!!");
+            // alert("Login Successfully!!");
             dispatch(setUser(res.data));
             history.push("/feeds");
 

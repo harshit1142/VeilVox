@@ -1,58 +1,105 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Pages/Feed/Feed.css'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
 
 export default function PostBox({user,caption,ele}) {
      const history=useHistory();
     
     //  console.log(ele.imageURL);
-          var url=`"${ele.imageURL}"`
+          var url=`"${ele.imageURL}"`   
         //   console.log(typeof url +" "+url);
         while(url.startsWith('"') && url.endsWith('"')){
             url=url.slice(1,-1);
         }
         // console.log(url);
     const imgurl=(ele.imageURL)?(url):"https://static.vecteezy.com/system/resources/previews/012/942/784/non_2x/broken-image-icon-isolated-on-a-white-background-no-image-symbol-for-web-and-mobile-apps-free-vector.jpg";
-    async function upvotePost(e) {
-        e.preventDefault();
-        const response = await fetch(`http://localhost:4000/post/upvote/${ele._id}`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                userid: user.userId
-            })
-        })
-        const res = await response.json();
-        if (res.status === 201) {
-            // alert("Upvoted Successfully!!");
-            window.location.reload();
-          
-        } else {
-            alert("Error Occured" + res.message);
+    const [isUpvoted, setIsUpvoted] = useState(-1);
+    const [isDownvoted, setIsDownvoted] = useState(-1);
+    const [upvoteLen, setUpvoteLen] = useState(0);
+    const [downvoteLen, setDownvoteLen] = useState(0);
+
+    useEffect(() => {
+        const isUserUpvoted = ele.upvote.includes(user.userId);
+        if(isUserUpvoted){
+            setIsUpvoted(ele.upvote.length-1);
         }
+        const isUserDownvoted = ele.downvote.includes(user.userId);
+        if(isUserDownvoted){
+            setIsDownvoted(ele.downvote.length-1);
+        }
+        setUpvoteLen(ele.upvote.length);
+        setDownvoteLen(ele.downvote.length);
+
+    }, [])
+
+
+    const UpvoteButton = ({ele, isUpvoted, setIsUpvoted, setIsDownvoted, setUpvoteLen, setDownvoteLen}) => {
+        async function upvotePost(e) {
+            e.preventDefault();
+            const response = await fetch(`http://localhost:4000/post/upvote/${ele._id}`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    userid: user.userId
+                })
+            })
+            const res = await response.json();
+            console.log(res);
+            
+            if (res.status === 201) {
+                setIsUpvoted(res.isUpvoted);
+                setIsDownvoted(res.isDownvoted);
+                setUpvoteLen(res.data.upvote.length);
+                setDownvoteLen(res.data.downvote.length);
+              
+            } else {
+                alert("Error Occured" + res.message);
+            }
+        }
+
+
+        return(
+            <>
+                <button onClick={upvotePost}><b className={(isUpvoted === -1) ? "uil uil-thumbs-up btn" : "mdi--thumbs-up btn"}>{upvoteLen}</b></button>
+            </>
+        )
     }
 
-    async function downvotePost(e) {
-        e.preventDefault();
-        const response = await fetch(`http://localhost:4000/post/downvote/${ele._id}`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                userid: user.userId
+    const DownvoteButton = ({ele, setIsUpvoted, isDownvoted, setIsDownvoted, setUpvoteLen, setDownvoteLen}) => {
+        async function downvotePost(e) {
+            e.preventDefault();
+            const response = await fetch(`http://localhost:4000/post/downvote/${ele._id}`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    userid: user.userId
+                })
             })
-        })
-        const res = await response.json();
-        if (res.status === 201) {
-            // alert("Downvoted Successfully!!");
-            window.location.reload();
-        } else {
-            alert("Error Occured" + res.message);
+            const res = await response.json();
+            console.log(res);
+    
+            if (res.status === 201) {
+                setIsUpvoted(res.isUpvoted);
+                setIsDownvoted(res.isDownvoted);
+                setUpvoteLen(res.data.upvote.length);
+                setDownvoteLen(res.data.downvote.length);
+            } else {
+                alert("Error Occured" + res.message);
+            }
         }
+        
+        return(
+            <>
+                <button onClick={downvotePost}><b className={(isDownvoted === -1) ? "uil uil-thumbs-down btn" : "mdi--thumbs-down btn"}>{downvoteLen}</b></button>
+            </>
+        )
     }
+
 
     const postLink=`/feed/${ele._id}`;
     return (
@@ -84,8 +131,8 @@ export default function PostBox({user,caption,ele}) {
 
                 <div className="action-buttons">
                     <div className="interaction-button">
-                    <button onClick={upvotePost}><i className="uil uil-thumbs-up btn"></i></button>
-                    <button onClick={downvotePost}><i className="uil uil-thumbs-down btn"></i></button>
+                    <UpvoteButton ele = {ele} isUpvoted={isUpvoted} setIsUpvoted={setIsUpvoted}  setIsDownvoted={setIsDownvoted} setUpvoteLen = {setUpvoteLen} setDownvoteLen = {setDownvoteLen}/>
+                    <DownvoteButton ele = {ele} setIsUpvoted={setIsUpvoted} isDownvoted={isDownvoted} setIsDownvoted={setIsDownvoted} setUpvoteLen = {setUpvoteLen} setDownvoteLen = {setDownvoteLen}/>
                     <Link to={postLink} ><i className="uil uil-comment btn"></i></Link>
                         {/* <!-- <span><i className="uil uil-share"></i></span> --> */}
                     </div>
@@ -96,7 +143,7 @@ export default function PostBox({user,caption,ele}) {
 
                  <div className="liked-by">
                     
-                <p>Upvoted by <b>{ele.upvote && ele.upvote.length}</b> and Downvoted by <b>{ele.downvote && ele.downvote.length}</b></p>
+                {/* <p>Upvoted by <b>{ele.upvote && ele.upvote.length}</b> and Downvoted by <b>{ele.downvote && ele.downvote.length}</b></p> */}
                 </div> 
 
           

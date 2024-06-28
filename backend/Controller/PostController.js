@@ -115,20 +115,23 @@ async function postUpvote(req, res){
             _id: postid
         })
 
-        const ifUpvoteExists = post.upvote.indexOf(userid);
-        const ifDownvoteExists = post.downvote.indexOf(userid);
+        let ifUpvoteExists = post.upvote.indexOf(userid);
+        let ifDownvoteExists = post.downvote.indexOf(userid);
 
         if(ifUpvoteExists != -1){
             // remove upvote
             post.upvote.splice(ifUpvoteExists, 1);
+            ifUpvoteExists = -1;
         }
         else{
             if(ifDownvoteExists != -1){
                 // remove downvote
                 post.downvote.splice(ifDownvoteExists, 1);
+                ifDownvoteExists = -1;
             }
             // add upvote
             post.upvote.push(userid);
+            ifUpvoteExists = post.upvote.length - 1;
         }
         const result=await postModel.findByIdAndUpdate({_id:postid},
             { 
@@ -144,6 +147,8 @@ async function postUpvote(req, res){
         res.json({
             status:201,
             msg: "Upvoted successfully",
+            isUpvoted: ifUpvoteExists,
+            isDownvoted: ifDownvoteExists,
             data: result
         })
 
@@ -165,20 +170,23 @@ async function postDownvote(req, res){
             _id: postid
         })
 
-        const ifDownvoteExists = post.downvote.indexOf(userid);
-        const ifUpvoteExists = post.upvote.indexOf(userid);
+        let ifDownvoteExists = post.downvote.indexOf(userid);
+        let ifUpvoteExists = post.upvote.indexOf(userid);
 
         if(ifDownvoteExists != -1){
             // remove downvote
             post.downvote.splice(ifDownvoteExists, 1);
+            ifDownvoteExists = -1;
         }
         else{
             if(ifUpvoteExists != -1){
                 // remove upvote
                 post.upvote.splice(ifUpvoteExists, 1);
+                ifUpvoteExists = -1;
             }
             // add downvote
             post.downvote.push(userid);
+            ifDownvoteExists = post.downvote.length - 1;
         }
         const result=await postModel.findByIdAndUpdate({_id:postid},
             { 
@@ -194,6 +202,8 @@ async function postDownvote(req, res){
         res.json({
             status: 201,
             msg: "Downvoted successfully",
+            isUpvoted: ifUpvoteExists,
+            isDownvoted: ifDownvoteExists,
             data: result
         })
 
