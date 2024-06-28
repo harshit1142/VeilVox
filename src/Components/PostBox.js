@@ -20,16 +20,18 @@ export default function PostBox({user,caption,ele}) {
     const [downvoteLen, setDownvoteLen] = useState(0);
 
     useEffect(() => {
-        const isUserUpvoted = ele.upvote.includes(user.userId);
-        if(isUserUpvoted){
-            setIsUpvoted(ele.upvote.length-1);
+        if (ele && ele.upvote && ele.downvote) {
+            const isUserUpvoted = ele.upvote.includes(user.userId);
+            if(isUserUpvoted){
+                setIsUpvoted(ele.upvote.length-1);
+            }
+            const isUserDownvoted = ele.downvote.includes(user.userId);
+            if(isUserDownvoted){
+                setIsDownvoted(ele.downvote.length-1);
+            }
+            setUpvoteLen(ele.upvote.length);
+            setDownvoteLen(ele.downvote.length);
         }
-        const isUserDownvoted = ele.downvote.includes(user.userId);
-        if(isUserDownvoted){
-            setIsDownvoted(ele.downvote.length-1);
-        }
-        setUpvoteLen(ele.upvote.length);
-        setDownvoteLen(ele.downvote.length);
 
     }, [])
 
