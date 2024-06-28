@@ -63,7 +63,7 @@ export default function PostBox({user,caption,ele}) {
 
         return(
             <>
-                <button onClick={upvotePost}><b className={(isUpvoted === -1) ? "uil uil-thumbs-up btn" : "mdi--thumbs-up btn"}>{upvoteLen}</b></button>
+                <button onClick={upvotePost}><b className={(isUpvoted === -1) ? "uil uil-thumbs-up btn" : "uil uil-thumbs-up btn btn-add"}>{upvoteLen}</b></button>
             </>
         )
     }
@@ -95,7 +95,7 @@ export default function PostBox({user,caption,ele}) {
         
         return(
             <>
-                <button onClick={downvotePost}><b className={(isDownvoted === -1) ? "uil uil-thumbs-down btn" : "mdi--thumbs-down btn"}>{downvoteLen}</b></button>
+                <button onClick={downvotePost}><b className={(isDownvoted === -1) ? "uil uil-thumbs-down btn" : "uil uil-thumbs-down btn btn-add"}>{downvoteLen}</b></button>
             </>
         )
     }
