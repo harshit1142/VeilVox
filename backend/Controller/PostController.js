@@ -1,6 +1,7 @@
 const postModel = require('../Model/PostModel');
 const userModel = require('../Model/UserModel');
 const mongoose = require('mongoose');
+const limit = 5;
 
 async function createPost(req, res){
     try{
@@ -32,6 +33,26 @@ async function createPost(req, res){
     catch(error){
 
         res.json({
+            msg : "error"+error
+        })
+    }
+}
+
+async function getPagePost(req, res){
+    const page = parseInt(req.params.page);
+    const skip = (page-1)*limit; // how many post needs to be skipped   
+
+    try{
+        const posts = await postModel.find({}).skip(skip).limit(limit).sort({ timestamp: -1 }).populate({
+            path: "comment",
+            options: { sort: { timestamp: -1 } }
+        });
+        res.status(201).json({
+            data: posts
+        });
+    }
+    catch(error){
+        res.status(500).json({
             msg : "error"+error
         })
     }
@@ -243,4 +264,4 @@ async function getUpDownVote(req, res){
 
 
 
-module.exports = { getAllPosts, createPost, getUserPost, postUpvote, postDownvote, getUpDownVote,getAPost };
+module.exports = { getPagePost, getAllPosts, createPost, getUserPost, postUpvote, postDownvote, getUpDownVote, getAPost };

@@ -10,7 +10,6 @@ import {
   Route
   
 } from "react-router-dom";
-import Main from './Pages/Main/Main';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from './Redux/UserRedux';

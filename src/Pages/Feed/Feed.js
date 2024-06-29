@@ -6,28 +6,39 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import PostBox from '../../Components/PostBox';
+import InfiniteScroll from "react-infinite-scroll-component";
+import { ThreeDots } from 'react-loader-spinner';
 
 export default function Feed() {
     const history = useHistory();
     const selectUser = (state) => state.UserReducer.user;
     const user = useSelector(selectUser)
-    const [allPost, setAllPost] = useState([]);
+    const [allPost, setAllPost] = useState([]); // the array where all the posts are concatenated
+    const[page, setPage] = useState(1); // here a page referes to the batch of 10 posts
+    const [hasMore, setHasMore] = useState(true); // tells whether there are more posts or not
     
 
     useEffect(() => {
-        getAllPost();
+        fetchMorePosts();
     }, [])
 
-    async function getAllPost() {
-        const response = await fetch(`http://localhost:4000/post`)
-        const res = await response.json();
-        setAllPost(res);
-    }
-    // async function getUserPost() {
-    //     const response = await fetch(`http://localhost:4000/post/${user.userId}`)
-    //     const res = await response.json();
-    //     setUserPosts(res);
-    // }
+    const fetchMorePosts = async () => {
+        try{
+            console.log(`Fetching posts for page ${page}`);
+            const response = await fetch(`http://localhost:4000/post/page/${page}`);
+            
+            const res = await response.json();
+            
+            if (res.data.length === 0) {
+                setHasMore(false); // No more posts available
+            } else {
+                setAllPost(prevPosts => [...prevPosts, ...res.data]);
+                setPage(prevPage => prevPage + 1); // Increment the page number
+            }
+        } catch(err){
+            console.log("error"+err);
+        }
+    };
    
 
     if ((user === null || user.name === "")) {
@@ -138,13 +149,39 @@ export default function Feed() {
 
 
                         {/* <!----------------------Feeds--------------------> */}
+                        <InfiniteScroll
+                            dataLength={allPost.length}
+                            next={fetchMorePosts}
+                            // style={{ display: 'flex', flexDirection: 'column-reverse' }} //To put endMessage and loader to the top.
+                            // inverse={true} //
+                            hasMore={hasMore}
+                            loader={<div className='loader-class'><ThreeDots
+                                visible={true}
+                                height="60"
+                                width="60"
+                                color="#244166"
+                                radius="9"
+                                ariaLabel="three-dots-loading"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                                /></div>}
+                            endMessage={
+                                <p style={{ textAlign: 'center' }}>
+                                  <b>Yay! You have seen it all</b>
+                                </p>
+                            }
+                            scrollableTarget="scrollableDiv"
+                        >
+                        
 
                         <div className="feeds">
 
-                            { allPost && allPost.map((ele, ind) => {    
+                            { allPost && allPost.map((ele) => {    
                                 return <PostBox user={user} caption={ele.caption} ele={ele} key={ele._id}/>
                             })}
                         </div>
+
+                        </InfiniteScroll>
                     </div>
 
                     {/* <!---=================Right=================-->
