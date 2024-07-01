@@ -10,7 +10,7 @@ async function createComments(req, res){
             userId:body.userId,
             content:body.content
         });
-        const commentId = comment._id;
+        const commentId = comment._id;  
         const postid = req.params.id;
 
         await postModel.findByIdAndUpdate({
@@ -30,9 +30,8 @@ async function createComments(req, res){
         })
 
     } catch(error){
-
         res.json({
-            msg : "error"+error
+            msg : "error: "+error
         })
     }
 
@@ -40,20 +39,62 @@ async function createComments(req, res){
 
 async function getComments(req, res){
     try{
-        const postid = req.params.id;
-        const post = await postModel.findOne({ _id: postid }).populate({path:'comment', model: 'commentModel'});
-
-        res.status(201).json(post.comment);
-
+        const postId = req.params.id;
+        const post = await postModel.findOne({ _id: postId})
+        .populate({
+            path: 'comment',
+            model: 'commentModel',
+            populate: {
+              path: 'replies',
+              model: 'commentModel',
+            }
+        });
+        
+        var comment = post.comment;
+        comment.filter((c) => {
+            return (!c.isReply)
+        })
+       
+        
+        res.status(201).json(comment);
 
     } catch(error){
-
         res.json({
-            msg : "error"+error
+            msg : "error: "+error
         })
     }
 
 }
 
+async function postReply(req, res){
+    try{
+        const { name, userId, content, parentCommentId } = req.body;
+        const reply = await commentModel.create({
+            name: name,
+            userId: userId,
+            content: content,
+            isReply: true,
+            parentComment: parentCommentId
+        });
 
-module.exports={ createComments, getComments };
+        await commentModel.findByIdAndUpdate({
+            _id: parentCommentId
+        },
+        {
+            $push:{
+                replies: reply._id 
+            }
+        }
+        );
+        
+        res.status(201).json(reply);
+
+    } catch(err){
+        res.json({
+            msg : "error: "+err
+        })
+    }
+}
+
+
+module.exports={ createComments, getComments, postReply };

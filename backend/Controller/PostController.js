@@ -5,10 +5,18 @@ const limit = 5;
 
 async function createPost(req, res){
     try{
-        const body = req.body;
-        // console.log(body);
+        const { name, caption, imageURL } = req.body;
         const userid = req.params.id;
-        const post = await postModel.create(body);
+        const user = await userModel.findOne({ name: name});
+
+        var postData = {
+            name,
+            caption,
+            imageURL,
+            userPic: user.pic
+        };
+
+        const post = await postModel.create(postData);
         // const postId = new mongoose.Types.ObjectId(post.id);
         const postId = post._id;
         
@@ -32,7 +40,7 @@ async function createPost(req, res){
     }
     catch(error){
 
-        res.json({
+        res.status().json({
             msg : "error"+error
         })
     }

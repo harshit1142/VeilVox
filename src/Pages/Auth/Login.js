@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useToast } from '@chakra-ui/react'
 
 import "./login.css"
 import { setUser } from '../../Redux/UserRedux';
@@ -11,6 +12,7 @@ export default function Login() {
     const user = useSelector(selectUser);
     const history=useHistory();
     const dispatch = useDispatch();
+    const toast = useToast();
     const [data, setData] = useState({
         user: "",
         password: ""
@@ -39,7 +41,13 @@ export default function Login() {
             history.push("/feeds");
 
         } else {
-            alert("Error Occured" + res.message);
+            // alert("Error Occured" + res.message);
+            toast({
+                title: "Error Occured" + res.message,
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+            })
         }
     }
      

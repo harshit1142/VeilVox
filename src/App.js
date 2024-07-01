@@ -14,8 +14,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from './Redux/UserRedux';
 import Feed from './Pages/Feed/Feed';
-import Post from './Pages/Post/Post';
 import CreatePost from './Components/CreatePost';
+import './Pages/Post/Post.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +33,6 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/feeds" component={Feed} />
-          <Route path="/feed/:postId" component={Post} />
           <Route path="/create/post" component={CreatePost} />
           <Route path="*" component={PageNotFound} />
         </Switch>

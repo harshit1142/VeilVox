@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import '../Pages/Feed/Feed.css'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useToast } from '@chakra-ui/react';
+import { CommentModal } from './CommentModal';
 
 
-export default function PostBox({user,caption,ele}) {
+export default function PostBox({user,caption,ele,userPic}) {
      const history=useHistory();
+     const toast = useToast();
     
     //  console.log(ele.imageURL);
           var url=`"${ele.imageURL}"`   
@@ -18,6 +21,8 @@ export default function PostBox({user,caption,ele}) {
     const [isDownvoted, setIsDownvoted] = useState(-1);
     const [upvoteLen, setUpvoteLen] = useState(0);
     const [downvoteLen, setDownvoteLen] = useState(0);
+
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         if (ele && ele.upvote && ele.downvote) {
@@ -49,7 +54,6 @@ export default function PostBox({user,caption,ele}) {
                 })
             })
             const res = await response.json();
-            console.log(res);
             
             if (res.status === 201) {
                 setIsUpvoted(res.isUpvoted);
@@ -58,7 +62,13 @@ export default function PostBox({user,caption,ele}) {
                 setDownvoteLen(res.data.downvote.length);
               
             } else {
-                alert("Error Occured" + res.message);
+                // alert("Error Occured" + res.message);
+                toast({
+                    title: "Error Occured" + res.message,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                })
             }
         }
 
@@ -83,7 +93,6 @@ export default function PostBox({user,caption,ele}) {
                 })
             })
             const res = await response.json();
-            console.log(res);
     
             if (res.status === 201) {
                 setIsUpvoted(res.isUpvoted);
@@ -91,7 +100,13 @@ export default function PostBox({user,caption,ele}) {
                 setUpvoteLen(res.data.upvote.length);
                 setDownvoteLen(res.data.downvote.length);
             } else {
-                alert("Error Occured" + res.message);
+                // alert("Error Occured" + res.message);
+                toast({
+                    title: "Error Occured" + res.message,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                })
             }
         }
         
@@ -110,7 +125,7 @@ export default function PostBox({user,caption,ele}) {
                 <div className="">
                     <div className="user">
                         <div className="profile-photo">
-                        <img src="https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg" alt="" />
+                        <img src={`${userPic}`} alt="" />
                         </div>
                         <div className="info">
                             <h3>{ele.name}</h3>
@@ -135,18 +150,16 @@ export default function PostBox({user,caption,ele}) {
                     <div className="interaction-button">
                     <UpvoteButton ele = {ele} isUpvoted={isUpvoted} setIsUpvoted={setIsUpvoted}  setIsDownvoted={setIsDownvoted} setUpvoteLen = {setUpvoteLen} setDownvoteLen = {setDownvoteLen}/>
                     <DownvoteButton ele = {ele} setIsUpvoted={setIsUpvoted} isDownvoted={isDownvoted} setIsDownvoted={setIsDownvoted} setUpvoteLen = {setUpvoteLen} setDownvoteLen = {setDownvoteLen}/>
-                    <Link to={postLink} ><i className="uil uil-comment btn"></i></Link>
+                    {/* <Link to={postLink} ><i className="uil uil-comment btn"></i></Link> */}
+                    <i className="uil uil-comment btn" onClick={() => setIsOpen(true)}></i>
+                    <CommentModal isOpen={isOpen} onClose={() => setIsOpen(false)} postId={ele._id}/>
+
                         {/* <!-- <span><i className="uil uil-share"></i></span> --> */}
                     </div>
                     {/* <!-- <div className="bookmark">
                                           <span><i className="uil uil-bookmark"></i></span>
                                       </div> --> */}
                 </div>
-
-                 <div className="liked-by">
-                    
-                {/* <p>Upvoted by <b>{ele.upvote && ele.upvote.length}</b> and Downvoted by <b>{ele.downvote && ele.downvote.length}</b></p> */}
-                </div> 
 
           
                 {/* <div className="comments text-muted">View all 130 comments</div> */}

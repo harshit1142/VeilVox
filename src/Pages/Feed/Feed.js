@@ -24,7 +24,6 @@ export default function Feed() {
 
     const fetchMorePosts = async () => {
         try{
-            console.log(`Fetching posts for page ${page}`);
             const response = await fetch(`http://localhost:4000/post/page/${page}`);
             
             const res = await response.json();
@@ -47,7 +46,6 @@ export default function Feed() {
     }
 
 
-
     return (
         <div >
             <Navbar />
@@ -57,7 +55,7 @@ export default function Feed() {
                     <div className="left text-dark">
                         <a className="profile">
                             <div className="profile-photo">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjUEKPW1-5gUq438DWHOePDHplsx2do3AHp9fdEktTfg&s" />
+                                <img src= {`${user.pic}`} />
                             </div>
                             <div className="handle ">
                                 <h4>{user.name}</h4>
@@ -152,8 +150,6 @@ export default function Feed() {
                         <InfiniteScroll
                             dataLength={allPost.length}
                             next={fetchMorePosts}
-                            // style={{ display: 'flex', flexDirection: 'column-reverse' }} //To put endMessage and loader to the top.
-                            // inverse={true} //
                             hasMore={hasMore}
                             loader={<div className='loader-class'><ThreeDots
                                 visible={true}
@@ -177,7 +173,7 @@ export default function Feed() {
                         <div className="feeds">
 
                             { allPost && allPost.map((ele) => {    
-                                return <PostBox user={user} caption={ele.caption} ele={ele} key={ele._id}/>
+                                return <PostBox user={user} caption={ele.caption} ele={ele} key={ele._id} userPic = {ele.userPic}/>
                             })}
                         </div>
 

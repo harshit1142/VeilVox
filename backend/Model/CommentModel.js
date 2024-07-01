@@ -15,13 +15,23 @@ const commentSchema = new mongoose.Schema({
     },
     timestamp:{
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     replies: [{
         type:mongoose.Schema.Types.ObjectId,
-        ref: 'replyModel'
-    }]
+        ref: 'commentModel'
+    }],
+    isReply: {
+        type: Boolean,
+        default: false
+    },
+    parentComment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'commentModel',
+        default: null
+    }
 })
+
 
 const replyCommentSchema = new mongoose.Schema({
     name: {

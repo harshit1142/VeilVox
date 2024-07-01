@@ -37,6 +37,12 @@ async function loginUser(req, res) {
 
 
 async function postuser(req, res) {
+    if(!req.body.name || !req.body.password){
+        return res.status(400).json({
+            status: 400,
+            message: "Please enter all the fields"
+        });
+    }
     try {
         const body = req.body;
         const user = await userModel.create(body);

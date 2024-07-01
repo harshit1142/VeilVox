@@ -5,6 +5,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    userPic: {
+        type: String,
+        default: "https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg"
+    },
     caption:{
         type : String,
         required : true

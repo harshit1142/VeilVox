@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import "./login.css"
 import { setUser } from '../../Redux/UserRedux';
+import { useToast } from '@chakra-ui/react';
 
 
 export default function Register() {
@@ -10,6 +11,7 @@ export default function Register() {
     const user = useSelector(selectUser);
     const history=useHistory();
     const dispatch = useDispatch();
+    const toast = useToast();
     
     const [data, setData] = useState({
         user: "",
@@ -34,14 +36,46 @@ export default function Register() {
         })
         const res = await response.json();
         if (res.status === 201) {
-            alert("Registered Successfully!!");
+            // alert("Registered Successfully!!");
+            toast({
+                title: "Registered Successfully!!",
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+            })
             dispatch(setUser(res.data));
             history.push("/feeds");
 
         } else {
-            if (res.message.indexOf("E11000")) alert("User Already Exist!!")
-            else
-            alert(res.message);
+            if (res.message.indexOf("E11000")){
+                // alert("User Already Exist!!")
+                // console.log(res);
+                if(res.status === 400){
+                    toast({
+                        title: res.message,
+                        status: 'warning',
+                        duration: 2000,
+                        isClosable: true,
+                    })
+                }
+                else{
+                    toast({
+                        title: "User Already Exists!!",
+                        status: 'warning',
+                        duration: 2000,
+                        isClosable: true,
+                    })
+                }
+            }
+            else{
+                // alert(res.message);
+                toast({
+                    title: res.message,
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                })
+            }
         }
     }
 
