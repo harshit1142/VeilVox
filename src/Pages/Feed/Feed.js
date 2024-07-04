@@ -1,5 +1,5 @@
 
-import Navbar from '../../Components/Navbar'
+import Navbar from '../../Components/Navbar.js'
 import './Feed.css'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
@@ -8,14 +8,19 @@ import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import PostBox from '../../Components/PostBox';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ThreeDots } from 'react-loader-spinner';
+import NotificationBadge from "react-notification-badge";
+import { Effect } from "react-notification-badge";
+import { Button } from '@chakra-ui/react';
+import { useChat } from '../../Context/ChatProvider.js';
 
 export default function Feed() {
     const history = useHistory();
     const selectUser = (state) => state.UserReducer.user;
-    const user = useSelector(selectUser)
+    const user = useSelector(selectUser)    
     const [allPost, setAllPost] = useState([]); // the array where all the posts are concatenated
     const[page, setPage] = useState(1); // here a page referes to the batch of 10 posts
     const [hasMore, setHasMore] = useState(true); // tells whether there are more posts or not
+    const { notification } = useChat();
     
 
     useEffect(() => {
@@ -53,7 +58,7 @@ export default function Feed() {
                 <div className="container">
                     {/* <!---=================Left=================--> */}
                     <div className="left text-dark">
-                        <a className="profile">
+                        <Link to="/feeds" className="profile" style = {{ marginBottom:"10px", marginTop: "17px"}}>
                             <div className="profile-photo">
                                 <img src= {`${user.pic}`} />
                             </div>
@@ -63,7 +68,7 @@ export default function Feed() {
                                     {/* {user.userId} */}
                                 </p>
                             </div>
-                        </a>
+                        </Link>
 
                         {/* <!----------------------SideBar--------------> */}
                         <div className="sidebar">
@@ -76,16 +81,24 @@ export default function Feed() {
                                 <span><i className="uil uil-compass"></i></span>
                                 <h3>Explore</h3>
                             </a> */}
+                            
+                            <Link to="/chat" className="menu-item ll" id="messages-notifications">
+                                <div style={{display:"flex", justifyContent:"center", alignItems:'center'}}>
+                                        <span><i className="uil-envelope">
+                                            <NotificationBadge
+                                            count={notification.length}
+                                            effect={Effect.SCALE}
+                                            />
+                                        </i></span>
+                                        <h3>Message</h3>
+                               </div>
+                            </Link>
+                            
 
-                            <a className="menu-item ll" id="messages-notifications">
-                                <span><i className="uil uil-envelope"></i></span>
-                                <h3>Message</h3>
-                            </a>
-
-                            <a className="menu-item ll" id="theme">
+                            {/* <Link className="menu-item ll" id="theme">
                                 <span><i className="uil uil-palette"></i></span>
                                 <h3>Theme</h3>
-                            </a>
+                            </Link>  */}
 
                             {/* <a className="menu-item">
                                 <span><i className="uil uil-setting"></i></span>
@@ -98,44 +111,7 @@ export default function Feed() {
 
                     {/* <!---=================Middle=================--> */}
                     <div className="middle">
-                        {/* <!-- <div className="stories">
-                      <div className="story">
-                          <div className="profile-pic">
-                              <img src="./images/profile-8.jpg" alt="" />
-                          </div>
-                          <p className="name">Your Story</p>
-                      </div>
-                      <div className="story">
-                          <div className="profile-pic">
-                              <img src="./images/profile-9.jpg" alt="">
-                          </div>
-                          <p className="name">Lilla James</p>
-                      </div>
-                      <div className="story">
-                          <div className="profile-pic">
-                              <img src="./images/profile-2.jpg" alt="">
-                          </div>
-                          <p className="name">Jasmine Singh</p>
-                      </div>
-                      <div className="story">
-                          <div className="profile-pic">
-                              <img src="./images/profile-3.jpg" alt="">
-                          </div>
-                          <p className="name">Celina Fernandes</p>
-                      </div>
-                      <div className="story">
-                          <div className="profile-pic">
-                              <img src="./images/profile-4.jpg" alt="">
-                          </div>
-                          <p className="name">Mia Addams</p>
-                      </div>
-                      <div className="story">
-                          <div className="profile-pic">
-                              <img src="./images/profile-5.jpg" alt="">
-                          </div>
-                          <p className="name">Christy Kahea</p>
-                      </div>
-                  </div> --> */}
+                      
 
                         {/* <form className="create-post">
                             <div className="profile-photo">
@@ -179,13 +155,6 @@ export default function Feed() {
 
                         </InfiniteScroll>
                     </div>
-
-                    {/* <!---=================Right=================-->
-                      <!-- <div className="right">
-                          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure illum natus praesentium perferendis
-                          quidem explicabo, officia consequuntur perspiciatis. Autem pariatur quis quos quod cupiditate id
-                          corrupti soluta nulla voluptates neque.
-                      </div> --> */}
 
                 </div>
             </main>

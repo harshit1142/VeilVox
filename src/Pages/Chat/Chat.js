@@ -1,103 +1,37 @@
-import React from 'react'
+import { Box, useChakra } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { SideDrawer } from '../../Components/ChatComponents/SideDrawer';
+import { MyChats } from '../../Components/ChatComponents/MyChats';
+import { ChatBox } from '../../Components/ChatComponents/ChatBox';
+import '../Feed/Feed.css'
+import { useChat } from '../../Context/ChatProvider';
 
 export default function Chat() {
+  const selectUser = (state) => state.UserReducer.user;
+  const user = useSelector(selectUser);
+  const history = useHistory();
+  const [fetchAgain, setFetchAgain] = useState(false);
 
-  async function getAllChat() {
-    const response = await fetch(`http://localhost:4000/chat/${user.userId}`)
-    const res = await response.json();
-    // setAllPost(res);
-  }
-
-  async function createChat(e) {
-    e.preventDefault();
-    const response = await fetch(`http://localhost:4000/chat/${user.userId}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        // otherUserId: input.otherUserId
-      })
-    })
-    const res = await response.json();
-    if (res.status === 201) {
-      alert("Group Created Successfully!!");
-      // history.push("/main");
-    } else {
-      alert("Error Occured" + res.message);
-    }
-  }
-
-  async function createGroupChat(e) {
-    e.preventDefault();
-    const response = await fetch(`http://localhost:4000/chat/${user.userId}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        // users: input.users,
-        // chatName:input.chatName
-      })
-    })
-    const res = await response.json();
-    if (res.status === 201) {
-      
-      // history.push("/main");
-    } else {
-      alert("Error Occured" + res.message);
-    }
-  }
-
-  async function addToGroup(e) {
-    e.preventDefault();
-    const response = await fetch(`http://localhost:4000/group/remove`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        // chatId: input.users,
-        // UserId:input.chatName
-      })
-    })
-    const res = await response.json();
-    if (res.status === 201) {
-      alert("User Added Successfully!!");
-      // history.push("/main");
-    } else {
-      alert("Error Occured" + res.message);
-    }
-  }
-  
-  async function removeFromGroup(e) {
-    e.preventDefault();
-    const response = await fetch(`http://localhost:4000/group/add`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        // chatId: input.users,
-        // newUserId:input.chatName
-      })
-    })
-    const res = await response.json();
-    if (res.status === 201) {
-      alert("User Removed Successfully!!");
-      // history.push("/main");
-    } else {
-      alert("Error Occured" + res.message);
-    }
-  }
-  async function userChat(e) {
-    e.preventDefault();
-    const response = await fetch(`http://localhost:4000/chat/${user.userId}`)
-    const res = await response.json();
-    //  
+  if ((user === null || user.name === "")) {
+    return history.push("/login");
   }
 
   return (
-    <div>Chat</div>
+    <>
+
+      
+      <div style={{width:"100%"}}>
+        {<SideDrawer />}
+        <Box display="flex" justifyContent="space-between" padding="8px" height="90vh">
+          {<MyChats fetchAgain={fetchAgain} />}
+          {<ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}
+
+
+        </Box>
+
+      </div>
+    </>
   )
 }

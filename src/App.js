@@ -16,6 +16,7 @@ import { setUser } from './Redux/UserRedux';
 import Feed from './Pages/Feed/Feed';
 import CreatePost from './Components/CreatePost';
 import './Pages/Post/Post.css';
+import Chat from './Pages/Chat/Chat';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/feeds" component={Feed} />
+          <Route path="/chat" component={Chat} />
           <Route path="/create/post" component={CreatePost} />
           <Route path="*" component={PageNotFound} />
         </Switch>

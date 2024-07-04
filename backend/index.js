@@ -38,11 +38,59 @@ app.use((req, res, next) => {
 
 
 
-app.listen(4000,()=>{
+const server = app.listen(4000,()=>{
     console.log("App started on PORT 4000");
 })
 
 DB();
+
+const io = require('socket.io')(server, {
+    pingTimeout: 60000,
+    cors: {
+        origin: "http://localhost:3000"
+    },
+    credentials: true,
+});
+
+io.on("connection", (socket) => {
+    // console.log("a user connected");
+
+    socket.on('setup', (userData)=>{
+        socket.join(userData.userId); 
+        socket.emit("connected");
+    });
+
+    // adding users to a chat room
+    socket.on('join chat', (room)=>{
+        socket.join(room);
+        // console.log('user joined room: '+room);
+    })
+
+    socket.on('typing', (room) => socket.in(room).emit("typing"))
+    socket.on('stop typing', (room) => socket.in(room).emit("stop typing"))
+
+    socket.on('new message', (newMessageRecieved)=>{
+        let chat = newMessageRecieved.chat;
+
+        // in case there are no users in the chat
+        if(!chat.users){
+            return console.log('chat users not defined');
+        }
+        // else except for us emit the message to every other user in chat
+        chat.users.forEach(u => {
+            if(u._id === newMessageRecieved.sender._id) return;
+
+            // emit in the chat room initially created specifically for the user
+            socket.in(u._id).emit("message recieved", newMessageRecieved);
+            
+        });
+    })
+
+    socket.off("setup", () => {
+        // console.log("User disconnected");
+        socket.leave(userData._id);
+    })
+})
 
 
 const authRoutes = require('./Routes/authRoutes');

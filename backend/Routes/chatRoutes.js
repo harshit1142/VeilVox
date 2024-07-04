@@ -1,5 +1,5 @@
 const express = require("express");
-const { postChat, getAllChat, createGroupChat, renameChat, addToGroup, removeFromGroup } = require("../Controller/ChatController");
+const { getAllChat, postChat, createGroupChat, renameChat, addToGroup, removeFromGroup } = require("../Controller/ChatController");
 
 
 const chatRoutes = express.Router();

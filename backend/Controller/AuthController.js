@@ -59,7 +59,35 @@ async function postuser(req, res) {
         });
     } catch (error) {
         res.json({
-            message: "error"+error,
+            message: "error: "+error,
+            data: []
+        })
+    }
+
+}
+
+async function searchUser(req, res){
+    try{
+        const userId = req.params.id;
+        // search query
+        const { search } = req.body;
+
+         // keyword for search using regex
+        const keyword = search
+        ? {
+            $or: [
+              { name: { $regex: search, $options: "i" } }, // case-insensitive
+              { email: { $regex: search, $options: "i" } },
+            ],
+          }
+        : {};
+
+        const users = await userModel.find(keyword).find({ _id: { $ne: userId } });
+        res.json({users: users});
+
+    } catch(error){
+        res.json({
+            message: "error: "+error,
             data: []
         })
     }
@@ -67,5 +95,4 @@ async function postuser(req, res) {
 }
 
 
-
-module.exports = { loginUser ,postuser};
+module.exports = { loginUser ,postuser, searchUser};

@@ -1,14 +1,15 @@
 
 import React, { useState } from 'react';
 import './create-post.css';
-
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeUser } from '../Redux/UserRedux';
 import { useToast } from '@chakra-ui/react';
 
 export default function CreatePost() {
 
    const history=useHistory();
+   const dispatch = useDispatch();
     const selectUser = (state) => state.UserReducer.user;
     const user = useSelector(selectUser);
     const [loader,setLoader]=useState(false);
@@ -127,8 +128,34 @@ export default function CreatePost() {
         }
     }
 
+    function logout(){
+        // alert("Logout Successfully!!");
+        dispatch(removeUser());
+        history.push("/");
+    }
+
+
   return (
+    
+
     <div className='top'>
+      {/* <---------------------Navbar--------------------> */}
+      <nav>
+          <div className="container">
+            <Link to="/feeds">
+              <h2 className="logo">
+                  VeilVox
+              </h2>
+            </Link>
+              <div className="create">
+                  {/* <!-- <label className="btn btn-primary" for="create-post">Create</label> --> */}
+                  <button  onClick={logout} className="btn btn-primary">Logout</button>
+              </div>
+          </div>
+      </nav>
+
+      
+
       <div id='container'>
         <h2>Create Post</h2>
         <label htmlFor='upload' className='upload-label'>

@@ -2,7 +2,6 @@ const chatModel = require("../Model/ChatModel");
 const messageModel = require("../Model/MessageModel");
 const userModel = require("../Model/UserModel");
 
-
  async function sendMessage(req,res){
      const chatId = req.params.chatId;
      const {content,userId}=req.body;
@@ -15,11 +14,11 @@ const userModel = require("../Model/UserModel");
      try {
         var msg=await messageModel.create(newMessage);
 
-        msg= await msg.populate("sender","name _id");
+        msg= await msg.populate("sender","name _id pic");
         msg= await msg.populate("chat");
         msg=await userModel.populate(msg,{
             path:"chat.users",
-            select:"name _id"
+            select:"name _id pic"
         })
 
         await chatModel.findByIdAndUpdate(chatId,{
@@ -32,7 +31,7 @@ const userModel = require("../Model/UserModel");
          });
      } catch (error) {
          res.json({
-             message: "error"+error,
+             message: "error: "+error,
              data: []
          })
      }

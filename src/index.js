@@ -4,10 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store } from './app/store';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChatProvider } from './Context/ChatProvider';
 const theme = extendTheme({
-    styles: {
+    styles: { 
       global: () => ({
         body: {
           bg: ""
@@ -19,11 +20,12 @@ const theme = extendTheme({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ChakraProvider theme={theme} resetCSS={false}>
-        <Provider store={store}>
+      <ReduxProvider store={store}>
+        <ChatProvider>
             <App />
-        </Provider>
+        </ChatProvider>
+      </ReduxProvider> 
     </ChakraProvider>
-  
 );
 
 // If you want to start measuring performance in your app, pass a function

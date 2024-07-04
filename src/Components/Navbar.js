@@ -1,5 +1,6 @@
 import React from 'react'
 import '../Pages/Feed/Feed.css'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { removeUser } from '../Redux/UserRedux';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -16,9 +17,11 @@ export default function Navbar() {
   return (
       <nav>
           <div className="container">
+            <Link to="/feeds">
               <h2 className="logo">
                   VeilVox
               </h2>
+            </Link>
               <div className="search-bar">
                   <i className="uil uil-search"></i>
                   <input type="search" placeholder="Search for Users,People,Creators" />

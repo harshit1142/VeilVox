@@ -33,29 +33,6 @@ const commentSchema = new mongoose.Schema({
 })
 
 
-const replyCommentSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    userId:{
-        type:String,
-        required:true
-    },
-    reply:{
-        type: String,
-        required: true
-    },
-    timestamp:{
-        type: Date,
-        default: Date.now()
-    }
-})
-
-
-
 const commentModel = mongoose.model("commentModel", commentSchema);
-const replyModel = mongoose.model("replyModel", replyCommentSchema);
 
-
-module.exports = { commentModel, replyModel };
+module.exports = { commentModel };

@@ -138,7 +138,7 @@ export const CommentModal = ({ isOpen, onClose, postId }) => {
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent borderRadius={25}>
                     <ModalHeader display="flex" justifyContent="center">Comments</ModalHeader>

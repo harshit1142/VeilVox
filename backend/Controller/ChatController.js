@@ -4,8 +4,9 @@ const userModel = require('../Model/UserModel');
 
  async function postChat(req,res){
     try {
-        const { otherUserId }=req.body;
-        const userId=req.params.id;
+        const body =req.body;
+        const otherUserId = body.otherUserId;
+        const userId = req.params.id;
         if (otherUserId === userId){
             res.json({
                 status: 201,
@@ -23,7 +24,7 @@ const userModel = require('../Model/UserModel');
 
         isChat=await userModel.populate(isChat,{
             path:"latestMessage.sender",
-            select:"name _id"
+            select:"name _id pic"
         })
         if(isChat.length >0){
         
@@ -70,7 +71,7 @@ const userModel = require('../Model/UserModel');
        .then(async (result)=>{
            result = await userModel.populate(result,{
              path:"latestMessage.sender",
-             select:"name _id"
+             select:"name _id pic"
         })
 
         res.json({
@@ -91,7 +92,7 @@ const userModel = require('../Model/UserModel');
 }
 
 async function createGroupChat(req, res) {
-   var users=JSON.parse(req.body.users);
+   let users = JSON.parse(req.body.users);
    // add curr user too from frontend
     const admin = req.params.id;
    users.push(admin);
@@ -105,7 +106,7 @@ async function createGroupChat(req, res) {
 
    try {
     const groupChat=await chatModel.create({
-        chatName:req.body.chatname,
+        chatName:req.body.chatName,
         users:users,
         isGroupChat:true,
         groupAdmin:admin
@@ -115,11 +116,12 @@ async function createGroupChat(req, res) {
     .populate("groupAdmin","-password")
        res.json({
            status: 201,
-           meassage: "GroupChat Created",
+           message: "GroupChat Created",
            data: fullGroupChat
        })
 
    } catch (error) {
+        console.log("error"+error);
        res.json({
            message: "error" + error,
            data: []
@@ -156,7 +158,7 @@ async function renameChat(req,res){
       }
   } catch (error) {
       res.json({
-          message: "error" + error,
+          message: "error: " + error,
           data: []
       })
   }
@@ -167,7 +169,7 @@ async function addToGroup(req,res){
     const {chatId,newUserId}=req.body;
   try {
       const addedUser = await chatModel.findOneAndUpdate(
-          chatId,
+          {_id: chatId},
           {
             $push:{users:newUserId}
           },
@@ -178,7 +180,7 @@ async function addToGroup(req,res){
           .populate("groupAdmin", "-password -post")
 
 
-      if (updateChat) {
+      if (addedUser) {
           res.json({
               status: 201,
               meassage: "User Added",
@@ -193,7 +195,7 @@ async function addToGroup(req,res){
       }
   } catch (error) {
       res.json({
-          message: "error" + error,
+          message: "error: " + error,
           data: []
       })
   }
@@ -203,7 +205,7 @@ async function removeFromGroup(req,res){
     const {chatId,UserId}=req.body;
   try {
       const removeUser = await chatModel.findOneAndUpdate(
-          chatId,
+        {_id: chatId},
           {
             $pull:{users:UserId}
           },
@@ -214,7 +216,7 @@ async function removeFromGroup(req,res){
           .populate("groupAdmin", "-password -post")
 
 
-      if (updateChat) {
+      if (removeUser) {
           res.json({
               status: 201,
               meassage: "User Removed",
