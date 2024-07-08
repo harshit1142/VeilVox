@@ -291,6 +291,27 @@ async function getUpDownVote(req, res){
 
 }
 
+async function deletePost(req, res){
+    try{
+        const postId = req.params.id;
+        const { userName } = req.body;
+
+        await userModel.findOneAndUpdate({ name: userName },{
+            $pull: { post: postId }
+        });
+
+        await postModel.deleteOne({ _id: postId });
+        res.json({
+            status: 200,
+            msg: "Successfully deleted"
+        })
+    } catch(error){
+
+        res.json({
+            msg : "error"+error
+        })
+    }
+}
 
 
-module.exports = { getPagePost, createPost, getUserData, postUpvote, postDownvote, getUpDownVote, getAPost, fetchUserPosts};
+module.exports = { getPagePost, createPost, getUserData, postUpvote, postDownvote, getUpDownVote, getAPost, fetchUserPosts, deletePost};

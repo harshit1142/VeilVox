@@ -77,15 +77,7 @@ export default function Profile() {
         setPage(2);
         fetchInitialPosts();
         fetchUserData();
-    }, [userName])
-
-    useEffect(() => {
-        setAllPost([]);
-        setPage(2);
-        fetchInitialPosts();
-        // fetchUserData();
-    }, [tab])
-
+    }, [userName, tab])
 
     const fetchInitialPosts = async () => {
         try{

@@ -1,7 +1,7 @@
 const express = require('express');
 const postRoutes = express.Router();
 
-const { getPagePost, createPost, getUserData, postUpvote, postDownvote, getUpDownVote, getAPost, fetchUserPosts, fetchUpvotedUserPosts, fetchDownvotedUserPosts } = require('../Controller/PostController');
+const { getPagePost, createPost, getUserData, postUpvote, postDownvote, getUpDownVote, getAPost, fetchUserPosts, fetchUpvotedUserPosts, fetchDownvotedUserPosts, deletePost } = require('../Controller/PostController');
 
 // postRoutes.get('/', getAllPosts);
 
@@ -14,6 +14,7 @@ postRoutes
 postRoutes
 .route('/:id')
 .post(createPost)
+.delete(deletePost)
 
 postRoutes
 .route("/profile/:id")

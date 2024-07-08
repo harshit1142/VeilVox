@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import '../Pages/Feed/Feed.css'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { Avatar, useToast } from '@chakra-ui/react';
+import { Avatar, Box, Button, Menu, MenuButton, MenuItem, MenuList, useDisclosure, useToast } from '@chakra-ui/react';
 import { CommentModal } from './CommentModal';
-import { color } from 'framer-motion';
 import { getTimeString } from './timeLogicPost';
-
+import { DeleteIcon } from '@chakra-ui/icons';
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalCloseButton,
+} from '@chakra-ui/react'
 
 export default function PostBox({user,caption,ele,userPic}) {
      const history=useHistory();
@@ -23,7 +30,8 @@ export default function PostBox({user,caption,ele,userPic}) {
     const [isDownvoted, setIsDownvoted] = useState(-1);
     const [upvoteLen, setUpvoteLen] = useState(0);
     const [downvoteLen, setDownvoteLen] = useState(0);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenC, setIsOpen] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     useEffect(() => {
         if (ele && ele.upvote && ele.downvote) {
@@ -118,8 +126,34 @@ export default function PostBox({user,caption,ele,userPic}) {
         )
     }
 
+    const handleDelete = async () => {
+        onClose();
+        try{
+            const response = await fetch(`http://localhost:4000/post/${ele._id}`,{
+                method: "DELETE",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    userName: ele.name
+                })
+            })
+            const res = await response.json();
+            if(res.status === 200){
+                toast({
+                    title: 'Post will be deleted',
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                })
+            }
+        } catch(err){
+            console.log("error: "+err);
+        }
 
-    const postLink=`/feed/${ele._id}`;
+    }
+
+
     return (
 
             <div className="feed">
@@ -132,9 +166,43 @@ export default function PostBox({user,caption,ele,userPic}) {
                         <div className="info">
                             <h3><Link to={`/profile/${ele.name}`} style={{color:"black"}}>{ele.name}</Link></h3>
                             <small>{getTimeString(ele.timestamp)}</small>
+                        </div>  
+                        <div className="edit" style={{marginLeft:"auto"}}>
+                            {(user.name === ele.name) ? (<Menu>
+                                <MenuButton backgroundColor="white" cursor="pointer">
+                                    <i className="uil uil-ellipsis-h"></i>
+                                </MenuButton>
+                                    <MenuList borderRadius={6} p={1} minW="0" w={'157px'}>
+                                        <MenuItem cursor="pointer" borderRadius={5} width="150px" onClick={onOpen}>Delete Post<DeleteIcon marginLeft="auto" /></MenuItem>
+                                    </MenuList>
+                            </Menu>) : (<></>)}
+                            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                            <ModalOverlay />
+                                <ModalContent>
+                                {/* <ModalHeader>Are you sure you want to delete the Post?</ModalHeader> */}
+                                <ModalCloseButton cursor="pointer" />
+                                <ModalBody p={5}>
+                                    Are you sure you want to delete the Post?
+                                </ModalBody>
+
+                                {/* <ModalFooter> */}
+                                <Box display="flex" flexDir="column">
+                                    <Button colorScheme='red' mr={3} w="100%" borderRadius={0} cursor="pointer"
+                                    onClick={handleDelete}
+                                    >
+                                        Delete
+                                    </Button>
+                                    <Button colorScheme='blue' mr={3} w="100%" borderRadius={0} cursor="pointer"
+                                    onClick={onClose}
+                                    >
+                                        Close
+                                    </Button>
+                                {/* </ModalFooter> */}
+                                </Box>
+                                </ModalContent>
+                            </Modal>
                         </div>
                     </div>
-                    {/* <span className="edit"><i className="uil uil-ellipsis-h"></i></span> */}
                 </div>
                 <div className="caption">
                     <p>{caption}
@@ -154,7 +222,7 @@ export default function PostBox({user,caption,ele,userPic}) {
                     <DownvoteButton ele = {ele} setIsUpvoted={setIsUpvoted} isDownvoted={isDownvoted} setIsDownvoted={setIsDownvoted} setUpvoteLen = {setUpvoteLen} setDownvoteLen = {setDownvoteLen}/>
                     {/* <Link to={postLink} ><i className="uil uil-comment btn"></i></Link> */}
                     <i className="uil uil-comment btn" onClick={() => setIsOpen(true)}></i>
-                    <CommentModal isOpen={isOpen} onClose={() => setIsOpen(false)} postId={ele._id}/>
+                    <CommentModal isOpen={isOpenC} onClose={() => setIsOpen(false)} postId={ele._id}/>
 
                         {/* <!-- <span><i className="uil uil-share"></i></span> --> */}
                     </div>

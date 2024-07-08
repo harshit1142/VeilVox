@@ -23,7 +23,6 @@ import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { ChatLoading } from "./ChatLoading";
 import { UserCard } from "./UserCard";
 import { useChat } from "../../Context/ChatProvider";
-import { color } from "framer-motion";
 import { getSender } from "../ChatLogic";
 
 export const SideDrawer = () => {
@@ -173,6 +172,8 @@ export const SideDrawer = () => {
                         </MenuButton>
                         <MenuList>
                             <MenuItem cursor="pointer" onClick={() => {history.push("/feeds")}}>Home</MenuItem>
+                            <MenuDivider />
+                            <MenuItem cursor="pointer" onClick={() => {history.push(`/profile/${user.name}`)}}>My Profile</MenuItem>
                             <MenuDivider />
                             <MenuItem cursor="pointer" onClick={logout}>Logout</MenuItem>
                         </MenuList>

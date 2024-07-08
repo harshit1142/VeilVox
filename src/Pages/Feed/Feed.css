@@ -116,6 +116,13 @@ nav .container {
     justify-content: space-between;
 }
 
+nav .search-bar-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 nav .search-bar {
     background: var(--color-light);
     border-radius: var(--border-radius);
@@ -134,12 +141,27 @@ nav .search-bar input[type="search"]::placeholder {
     color: var(--color-gray);
 }
 
+.search-results {
+    position: absolute;
+    top: 100%;
+    width: 30vw;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 0.5rem;
+}
+
+.search-results .user-card {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Add more styles as necessary */
+
 nav .create {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
-
 
 
 
