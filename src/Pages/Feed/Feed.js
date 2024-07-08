@@ -13,6 +13,7 @@ import { Effect } from "react-notification-badge";
 import { Avatar, background, Button } from '@chakra-ui/react';
 import { useChat } from '../../Context/ChatProvider.js';
 import { color } from 'framer-motion';
+import { AddIcon } from '@chakra-ui/icons';
 
 export default function Feed() {
     const history = useHistory();
@@ -109,6 +110,7 @@ export default function Feed() {
                         </div>
 
                         <Link to="/create/post" className="btn btn-primary" for="create-post">Create Post</Link>
+                        <Link to="/create/post"><div className='btn btn-primary' id='responsive-div2'><AddIcon size="lg" /></div></Link>
                     </div>
 
                     {/* <!---=================Middle=================--> */}

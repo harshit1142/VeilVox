@@ -15,12 +15,12 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 app.use(cors({
-    origin: 'https://radiant-llama-8d9b03.netlify.app',
+    origin: 'https://668c0f5a31558d6273631777--precious-klepon-33af0f.netlify.app',
     credentials: true,
 }));
 
 app.use(cookies({
-    origin: 'https://radiant-llama-8d9b03.netlify.app',
+    origin: 'https://668c0f5a31558d6273631777--precious-klepon-33af0f.netlify.app',
     credentials: true,
 }));
 
@@ -47,7 +47,7 @@ DB();
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "https://radiant-llama-8d9b03.netlify.app"
+        origin: "https://668c0f5a31558d6273631777--precious-klepon-33af0f.netlify.app"
     },
     credentials: true,
 });
@@ -99,10 +99,8 @@ const postRoutes = require('./Routes/postRoutes');
 const commentRoutes = require('./Routes/commentRoutes');
 const replyRoutes = require('./Routes/replyRoutes');
 const messageRoutes = require('./Routes/messageRoutes');
-const uploadRoutes = require('./Routes/uploadRoutes');
 
 
-app.use('/uploads', uploadRoutes);
 app.use("/chat",chatRoutes)
 app.use("/auth",authRoutes);
 app.use('/post', postRoutes);

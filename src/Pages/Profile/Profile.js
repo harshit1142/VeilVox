@@ -21,6 +21,7 @@ import {
   } from '@chakra-ui/react'
 import { useChat } from '../../Context/ChatProvider.js';
 import { setUser } from '../../Redux/UserRedux.js'
+import { AddIcon } from '@chakra-ui/icons'
 
 const handlePostsButton = (setTab) => {
     setTab(0);
@@ -209,15 +210,16 @@ export default function Profile() {
     async function sendFile() {
         const formData = new FormData();
         formData.append('file', create.file);
+        formData.append('upload_preset', 'fldiprwc');
     
         try {
-            const response = await fetch('https://veilvox.onrender.com/uploads/', {
+            const response = await fetch('https://api.cloudinary.com/v1_1/dxfbnhmau/image/upload/', {
                 method: 'POST',
                 body: formData
             });
             
             const res = await response.json();
-            localStorage.setItem('image', res.data);
+            localStorage.setItem('image', res.url);
             sendPic();
         } catch (error) {
             console.error('Error:', error);
@@ -414,8 +416,8 @@ export default function Profile() {
                                 <h3>Settings</h3>
                             </a> */}
                         </div>
-
-                        <Link to="/create/post" className="btn btn-primary" for="create-post">Create Post</Link>
+                        <Link to="/create/post" className="btn btn-primary">Create Post</Link>
+                        <Link to="/create/post"><div className='btn btn-primary' id='responsive-div'><AddIcon size="lg" /></div></Link>
                     </div>
 
                     {/* <!---=================Middle=================--> */}

@@ -797,3 +797,25 @@ main .container .left .profile:hover {
     margin: 5px 0;
     border: 1px solid white;
 }
+
+#responsive-div {
+    display: none;
+  }
+  
+  /* Show the element only on small screens */
+  @media (max-width: 768px) {
+    #responsive-div {
+      display: block;
+    }
+  }
+
+#responsive-div2 {
+    display: none;
+  }
+  
+  /* Show the element only on small screens */
+  @media (max-width: 768px) {
+    #responsive-div2{
+      display: block;
+    }
+  }

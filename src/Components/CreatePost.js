@@ -54,9 +54,10 @@ export default function CreatePost() {
   async function sendFile() {
     const formData = new FormData();
     formData.append('file', create.file);
+    formData.append('upload_preset', 'fldiprwc')
 
     try {
-      const response = await fetch('https://veilvox.onrender.com/uploads/', {
+      const response = await fetch('https://api.cloudinary.com/v1_1/dxfbnhmau/image/upload/', {
         method: 'POST',
         body: formData
       });
@@ -64,7 +65,7 @@ export default function CreatePost() {
       const res = await response.json().then(response =>{
    
         setImg(response.data);
-        localStorage.setItem('image',(response.data));
+        localStorage.setItem('image',(response.url));
         // console.log(response.data);
         sendPost();
       }).catch(error=>{
