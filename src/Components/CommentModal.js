@@ -11,11 +11,14 @@ import {
     Input,
     Box,
     Text,
+    Spinner,
 } from '@chakra-ui/react';
+import { getTimeString, getTimeStringComment } from './timeLogicPost';
 
 export const CommentModal = ({ isOpen, onClose, postId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const [loading, setLoading] = useState(false);
     const selectUser = (state) => state.UserReducer.user;
     const user = useSelector(selectUser);
 
@@ -27,11 +30,14 @@ export const CommentModal = ({ isOpen, onClose, postId }) => {
 
     const fetchComments = async () => {
         try {
+            setLoading(true);
             const response = await fetch(`http://localhost:4000/comment/${postId}`);
             const res = await response.json();
+            setLoading(false);
             setComments(res);
         } catch (err) {
             console.log("error" + err);
+            setLoading(false);
         }
     };
 
@@ -85,7 +91,7 @@ export const CommentModal = ({ isOpen, onClose, postId }) => {
 
         return (
             <Box mb={4}>
-                <Text fontWeight="bold" fontSize={14}>{comment.name}:</Text>
+                <Text fontWeight="bold" fontSize={14}>{comment.name} <small style={{fontWeight:"normal", fontSize:"0.75rem"}}>{getTimeStringComment(comment.timestamp)}</small></Text>
                 <Text>{comment.content}</Text>
                 <Button cursor="pointer" size="xs" backgroundColor="white" onClick={() => setShowReplies(!showReplies)}>
                     {showReplies ? 'Hide Replies' : 'View Replies'}
@@ -146,9 +152,21 @@ export const CommentModal = ({ isOpen, onClose, postId }) => {
 
                     <ModalBody>
                         <Box maxHeight="20rem" overflowY="scroll" mb={0} width="100%" padding={2} border="3px solid #EAEAEA" borderRadius={10}>
-                            {Array.isArray(comments) && comments.map((comment) => (
+                            {(loading) ? (<Box 
+                            display="flex" 
+                            justifyContent="center" 
+                            alignItems="center" 
+                            width="100%"
+                            mt="7"
+                            mb="7"
+                            >
+                                <Spinner size="lg"/>
+                            </Box>) :
+
+                            (Array.isArray(comments) && comments.length>0 ? (comments.map((comment) => (
                                 <Comment key={comment._id} comment={comment} fetchComments={fetchComments} />
-                            ))}
+                            ))
+                            ) : (<Text display="flex" justifyContent="center" mt={7} mb={7}>No comments under this post</Text>))}
                         </Box>
                         <Box key={'l'} display="flex" justifyContent="center" alignItems="center">
                             <textarea

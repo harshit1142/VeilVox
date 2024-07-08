@@ -4,7 +4,7 @@ import './create-post.css';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUser } from '../Redux/UserRedux';
-import { useToast } from '@chakra-ui/react';
+import { Spinner, useToast } from '@chakra-ui/react';
 
 export default function CreatePost() {
 
@@ -35,6 +35,7 @@ export default function CreatePost() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoader(true);
     if (!create.file || create.description === '') {
       // alert('Invalid Response!! Please select an image and add a description.');
       toast({
@@ -43,11 +44,10 @@ export default function CreatePost() {
         duration: 2000,
         isClosable: true,
     })
+      setLoader(false);
       return;
     }
-    setLoader(true);
     sendFile();
-    setLoader(false);
     
   }
 
@@ -75,6 +75,7 @@ export default function CreatePost() {
           duration: 2000,
           isClosable: true,
       })
+      setLoader(false);
       });
      
     } catch (error) {
@@ -86,6 +87,7 @@ export default function CreatePost() {
         duration: 2000,
         isClosable: true,
     })
+    setLoader(false);
     }
   }
       async function sendPost() {
@@ -115,6 +117,7 @@ export default function CreatePost() {
               isClosable: true,
               position: 'bottom-right'
           })
+            setLoader(false);
             history.push("/feeds");
 
         } else {
@@ -125,6 +128,7 @@ export default function CreatePost() {
               duration: 2000,
               isClosable: true,
           })
+          setLoader(false);
         }
     }
 
@@ -180,11 +184,11 @@ export default function CreatePost() {
           name='description'
           value={create.description}
         ></textarea>
-        {loader ?  <button id='uploadBtn' disabled>
-          Posting....
-        </button>: <button id='uploadBtn' onClick={handleSubmit}>
+        {loader ?  (<button id='uploadBtn' disabled>
+          <Spinner />
+        </button>) : (<button id='uploadBtn' onClick={handleSubmit}>
           Post
-        </button>}
+        </button>)}
        
       </div>
     </div>

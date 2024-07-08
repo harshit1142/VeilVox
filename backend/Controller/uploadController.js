@@ -14,7 +14,10 @@ async function handleUpload(req, res){
             // If upload to Cloudinary is successful, unlink the file
             // fs.unlinkSync(imagePath);
     
-            res.json({ status : 201, message: 'File uploaded successfully using multer and Cloudinary', data: uploadResult.url });
+            res.json({ status : 201,
+                message: 'File uploaded successfully using multer and Cloudinary',
+                data: uploadResult.url
+            });
         }else{
             res.status(500).json({ error: 'Internal server error' });
 

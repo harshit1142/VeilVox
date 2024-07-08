@@ -18,7 +18,7 @@ const postSchema = new mongoose.Schema({
     },
     timestamp : {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     comment: [{
         type:mongoose.Schema.Types.ObjectId,

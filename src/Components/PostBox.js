@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import '../Pages/Feed/Feed.css'
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useToast } from '@chakra-ui/react';
+import { Avatar, useToast } from '@chakra-ui/react';
 import { CommentModal } from './CommentModal';
+import { color } from 'framer-motion';
+import { getTimeString } from './timeLogicPost';
 
 
 export default function PostBox({user,caption,ele,userPic}) {
@@ -21,7 +23,6 @@ export default function PostBox({user,caption,ele,userPic}) {
     const [isDownvoted, setIsDownvoted] = useState(-1);
     const [upvoteLen, setUpvoteLen] = useState(0);
     const [downvoteLen, setDownvoteLen] = useState(0);
-
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -124,12 +125,13 @@ export default function PostBox({user,caption,ele,userPic}) {
             <div className="feed">
                 <div className="">
                     <div className="user">
-                        <div className="profile-photo">
-                        <img src={`${userPic}`} alt="" />
+                        <div>
+                            {/* <img src={`${userPic}`} alt="" /> */}
+                            <Avatar size='md' ml={1} name={ele.name} src={userPic} />
                         </div>
                         <div className="info">
-                            <h3>{ele.name}</h3>
-                            {/* <small>Dubai, 15 MINUTES AGO</small> */}
+                            <h3><Link to={`/profile/${ele.name}`} style={{color:"black"}}>{ele.name}</Link></h3>
+                            <small>{getTimeString(ele.timestamp)}</small>
                         </div>
                     </div>
                     {/* <span className="edit"><i className="uil uil-ellipsis-h"></i></span> */}

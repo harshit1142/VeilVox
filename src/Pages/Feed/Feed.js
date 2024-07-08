@@ -10,15 +10,16 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { ThreeDots } from 'react-loader-spinner';
 import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
-import { Button } from '@chakra-ui/react';
+import { Avatar, background, Button } from '@chakra-ui/react';
 import { useChat } from '../../Context/ChatProvider.js';
+import { color } from 'framer-motion';
 
 export default function Feed() {
     const history = useHistory();
     const selectUser = (state) => state.UserReducer.user;
     const user = useSelector(selectUser)    
     const [allPost, setAllPost] = useState([]); // the array where all the posts are concatenated
-    const[page, setPage] = useState(1); // here a page referes to the batch of 10 posts
+    const[page, setPage] = useState(1); // here a page referes to the batch of 5 posts
     const [hasMore, setHasMore] = useState(true); // tells whether there are more posts or not
     const { notification } = useChat();
     
@@ -58,11 +59,12 @@ export default function Feed() {
                 <div className="container">
                     {/* <!---=================Left=================--> */}
                     <div className="left text-dark">
-                        <Link to="/feeds" className="profile" style = {{ marginBottom:"10px", marginTop: "17px"}}>
-                            <div className="profile-photo">
-                                <img src= {`${user.pic}`} />
+                        <Link to={`/profile/${user.name}`} className="profile" style = {{ marginBottom:"10px", marginTop: "17px"}}>
+                            <div>
+                                {/* <img src= {`${user.pic}`} /> */}
+                                <Avatar size='md' ml={1} name={user.name} src={user.pic} />
                             </div>
-                            <div className="handle ">
+                            <div className="handle">
                                 <h4>{user.name}</h4>
                                 <p className="text-muted">
                                     {/* {user.userId} */}
@@ -193,7 +195,7 @@ export default function Feed() {
                     </div>
 
                     {/* <!-----------------Background Color---------------------> */}
-                    <div className="background">
+                    {/* <div className="background">
                         <h4>Background</h4>
                         <div className="choose-bg">
                             <div className="bg-1 active">
@@ -210,8 +212,8 @@ export default function Feed() {
                                 <span></span>
                                 <h5 for="bg-3">Dark</h5>
                             </div>
-                        </div>
-                    </div>
+                        </div> */}
+                    {/* </div> */}
                 </div>
             </div>
 

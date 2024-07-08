@@ -1,7 +1,7 @@
 const express = require("express");
 
 
-const { loginUser ,postuser, searchUser} = require("../Controller/AuthController")
+const { loginUser ,postuser, searchUser, changePic} = require("../Controller/AuthController")
 const authRoutes = express.Router();
 
 
@@ -15,7 +15,8 @@ authRoutes
 
 authRoutes
 .route("/:id")
-.post(searchUser);
+.post(searchUser)
+.put(changePic);
 
 
 

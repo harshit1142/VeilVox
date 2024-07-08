@@ -1,7 +1,6 @@
 const postModel = require('../Model/PostModel');
 const userModel = require('../Model/UserModel');
 const mongoose = require('mongoose');
-const limit = 5;
 
 async function createPost(req, res){
     try{
@@ -47,6 +46,7 @@ async function createPost(req, res){
 }
 
 async function getPagePost(req, res){
+    const limit = 5;
     const page = parseInt(req.params.page);
     const skip = (page-1)*limit; // how many post needs to be skipped   
 
@@ -61,45 +61,32 @@ async function getPagePost(req, res){
     }
     catch(error){
         res.status(500).json({
-            msg : "error"+error
+            msg : "error: "+error
         })
     }
 }
 
-async function getAllPosts(req, res){
-    try {
-        const posts = await postModel.find({}).sort({ timestamp: -1 }).populate({
-            path: "comment",
-            options: { sort: { timestamp: -1 } }
-        });
-        res.status(201).json(posts);
-    } catch (error) {
-        res.json({
-            msg : "error"+error
-        })
-    }
-}
 
 // returns all the posts of the user and the total sum of upvotes and downvotes of all posts
-async function getUserPost(req, res){
+async function getUserData(req, res){
     try{
-        const userid = req.params.id;
+        const userName = req.params.id;
 
-        const posts = await userModel.findOne({ _id: userid }).populate("post");
+        const user = await userModel.findOne({ name: userName }).populate("post");
         
         var up=0,down=0;
-        for(var i=0;i<posts.post.length;i++){
-          up+=posts.post[i].upvote.length;
-          down+=posts.post[i].downvote.length;
+        for(var i=0;i<user.post.length;i++){
+          up+=user.post[i].upvote.length;
+          down+=user.post[i].downvote.length;
         }
 
-        res.status(201).json({
-            post:posts.post,
+        res.status(200).json({
+            _id: user._id,
+            pic: user.pic,
+            // post:user.post,
             upvote:up,
             downvote:down
         });
-
-     
      
 
     } catch(error){
@@ -110,20 +97,55 @@ async function getUserPost(req, res){
     }
 
 }
+
+async function fetchUserPosts(req, res){
+    try{
+        const limit = 10;
+        const { page, tab } = req.body;
+        const skip = (page-1)*limit;
+
+        const userName = req.params.id;
+        const user = await userModel.findOne({name: userName});
+
+        if (tab === 0) {
+            filter = { name: userName };
+        } else if (tab === 1) {
+            filter = { upvote: { $in: [user._id] } };
+        } else {
+            filter = { downvote: { $in: [user._id] } };
+        }
+
+
+       const posts = await postModel.find(filter).skip(skip).limit(limit).sort({ timestamp: -1 }).populate({
+            path: "comment",
+                options: { sort: { timestamp: -1 } }
+            });
+            res.status(201).json({
+                data: posts
+            });
+       
+
+    } catch(error){
+        
+        res.json({
+            msg : "error"+error
+        })
+    }
+}
+
+
+
 async function getAPost(req, res){
     try{
         const postId = req.params.id;
 
         const post = await postModel.findOne({ _id: postId }).populate("comment");
         
-       
 
         res.json({
             status:201,
             data:post
         });
-
-     
      
 
     } catch(error){
@@ -132,7 +154,6 @@ async function getAPost(req, res){
             msg : "error"+error
         })
     }
-
 }
 
 async function postUpvote(req, res){
@@ -272,4 +293,4 @@ async function getUpDownVote(req, res){
 
 
 
-module.exports = { getPagePost, getAllPosts, createPost, getUserPost, postUpvote, postDownvote, getUpDownVote, getAPost };
+module.exports = { getPagePost, createPost, getUserData, postUpvote, postDownvote, getUpDownVote, getAPost, fetchUserPosts};

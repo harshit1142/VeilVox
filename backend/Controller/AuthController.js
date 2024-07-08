@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const dotenv = require('dotenv');
 const userModel = require('../Model/UserModel')
+const postModel = require('../Model/PostModel')
 dotenv.config({ path: '../.env' });
 const jwtKey = process.env.JWT_KEY;
 
@@ -94,5 +95,39 @@ async function searchUser(req, res){
 
 }
 
+async function changePic(req, res){
+    try{
+        const userName = req.params.id;
+        const { newPic } = req.body;
+        if(!newPic){
+            return res.status(404).json({
+                message: "Image can't be empty"
+            })
+        }
 
-module.exports = { loginUser ,postuser, searchUser};
+        const user = await userModel.findOneAndUpdate({ name: userName }, {
+            $set: { pic: newPic }
+        },{
+            new: true
+        });
+
+        await postModel.updateMany({ name: userName }, {
+            $set: { userPic: newPic }  
+        })
+
+        res.json({
+            status: 201,
+            user: user
+        })
+
+    } catch(error){
+        res.status(500).json({
+            message: "error: "+error,
+            data: []
+        })
+    }
+
+}
+
+
+module.exports = { loginUser ,postuser, searchUser, changePic};
