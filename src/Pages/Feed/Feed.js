@@ -200,17 +200,17 @@ export default function Feed() {
                         <div className="choose-bg">
                             <div className="bg-1 active">
                                 <span></span>
-                                <h5 for="bg-1">Light</h5>
+                                <h5 ">Light</h5>
                             </div>
 
                             <div className="bg-2">
                                 <span></span>
-                                <h5 for="bg-2">Dim</h5>
+                                <h5>Dim</h5>
                             </div>
 
                             <div className="bg-3">
                                 <span></span>
-                                <h5 for="bg-3">Dark</h5>
+                                <h5>Dark</h5>
                             </div>
                         </div> */}
                     {/* </div> */}

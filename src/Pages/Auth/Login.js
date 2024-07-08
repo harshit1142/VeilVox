@@ -52,7 +52,7 @@ export default function Login() {
     }
      
     if(!(user ===null  || user.name==="")){
-       return history.push("/feeds");
+        return history.push("/feeds");
     }
     
 

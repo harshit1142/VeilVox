@@ -70,7 +70,6 @@ export default function Profile() {
     });
     const dispatch = useDispatch();
     const [tab, setTab] = useState(0);
-    
 
     useEffect(() => {
         setAllPost([]);
@@ -78,6 +77,7 @@ export default function Profile() {
         fetchInitialPosts();
         fetchUserData();
     }, [userName, tab])
+
 
     const fetchInitialPosts = async () => {
         try{
@@ -145,10 +145,27 @@ export default function Profile() {
     }
    
 
-    if ((user === null || user.name === "")) {
-        return history.push("/login");
+    const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500); 
+  }, [user]);
+
+  useEffect(() => {
+    if (!loading && (user === null || user.name === "")) {
+      history.push("/login");
     }
+  }, [loading, user, history]);
+
+  if (loading) {
+    return <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"2"}}><Spinner /></div>; 
+  }
+
+  if ((user === null || user.name === "")) {
+    return history.push("/login");
+  }
 
     function handleChange(e) {
         if (e.target.name === 'file') {

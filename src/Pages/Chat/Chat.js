@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react';
-import React, { useState } from 'react'
+import { Box, Spinner } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { SideDrawer } from '../../Components/ChatComponents/SideDrawer';
@@ -12,6 +12,7 @@ export default function Chat() {
   const user = useSelector(selectUser);
   const history = useHistory();
   const [fetchAgain, setFetchAgain] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   if ((user === null || user.name === "")) {
     return history.push("/login");
