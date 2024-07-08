@@ -31,7 +31,7 @@ export const CommentModal = ({ isOpen, onClose, postId }) => {
     const fetchComments = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:4000/comment/${postId}`);
+            const response = await fetch(`https://veilvox.onrender.com/comment/${postId}`);
             const res = await response.json();
             setLoading(false);
             setComments(res);
@@ -48,7 +48,7 @@ export const CommentModal = ({ isOpen, onClose, postId }) => {
                 userId: user.userId,
                 content: newComment,
             };
-            await fetch(`http://localhost:4000/comment/${postId}`, {
+            await fetch(`https://veilvox.onrender.com/comment/${postId}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -69,7 +69,7 @@ export const CommentModal = ({ isOpen, onClose, postId }) => {
 
         const handleAddReply = async (parentCommentId, replyToName) => {
             try {
-                await fetch('http://localhost:4000/comment/reply/post', {
+                await fetch('https://veilvox.onrender.com/comment/reply/post', {
                     method: "POST",
                     headers: {
                         "content-type": "application/json",

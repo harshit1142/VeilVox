@@ -30,7 +30,7 @@ export default function Feed() {
 
     const fetchMorePosts = async () => {
         try{
-            const response = await fetch(`http://localhost:4000/post/page/${page}`);
+            const response = await fetch(`https://veilvox.onrender.com/post/page/${page}`);
             
             const res = await response.json();
             

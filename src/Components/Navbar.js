@@ -34,7 +34,7 @@ export default function Navbar() {
             return;
         }
         try{
-            const response = await fetch(`http://localhost:4000/auth/${user.userId}`,{
+            const response = await fetch(`https://veilvox.onrender.com/auth/${user.userId}`,{
                 method: "POST",
                 headers: {
                     "content-type": "application/json",

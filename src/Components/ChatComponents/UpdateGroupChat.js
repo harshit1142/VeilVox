@@ -63,7 +63,7 @@ export const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) =>
 
       try{
         setLoading(true);
-        const response = await fetch(`http://localhost:4000/chat/group/add`, {
+        const response = await fetch(`https://veilvox.onrender.com/chat/group/add`, {
           method: "PUT",
                 headers: {
                     "content-type": "application/json",
@@ -106,7 +106,7 @@ export const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) =>
 
       try{
         setLoading(true);
-        const response = await fetch(`http://localhost:4000/chat/group/remove`, {
+        const response = await fetch(`https://veilvox.onrender.com/chat/group/remove`, {
           method: "PUT",
                 headers: {
                     "content-type": "application/json",
@@ -143,7 +143,7 @@ export const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) =>
 
         try{
             setRenameLoading(true);
-            const response = await fetch(`http://localhost:4000/chat/group/rename`, {
+            const response = await fetch(`https://veilvox.onrender.com/chat/group/rename`, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",
@@ -178,7 +178,7 @@ export const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) =>
       }
       try{
           setLoading(true);
-          const response = await fetch(`http://localhost:4000/auth/${user.userId}`,{
+          const response = await fetch(`https://veilvox.onrender.com/auth/${user.userId}`,{
               method: "POST",
               headers: {
                   "content-type": "application/json",

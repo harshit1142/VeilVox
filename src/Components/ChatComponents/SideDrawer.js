@@ -61,7 +61,7 @@ export const SideDrawer = () => {
         try{
             setLoading(true);
 
-            const response = await fetch(`http://localhost:4000/auth/${user.userId}`,{
+            const response = await fetch(`https://veilvox.onrender.com/auth/${user.userId}`,{
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -91,7 +91,7 @@ export const SideDrawer = () => {
     const fetchChat = async (userId) => {
         try{
             setLoadingChat(true);
-            const response = await fetch(`http://localhost:4000/chat/${user.userId}`, {
+            const response = await fetch(`https://veilvox.onrender.com/chat/${user.userId}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",

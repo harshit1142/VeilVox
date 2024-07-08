@@ -81,7 +81,7 @@ export default function Profile() {
 
     const fetchInitialPosts = async () => {
         try{
-            const response = await fetch(`http://localhost:4000/post/profile/${userName}`, {
+            const response = await fetch(`https://veilvox.onrender.com/post/profile/${userName}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -107,7 +107,7 @@ export default function Profile() {
 
     const fetchMorePosts = async () => {
         try{
-            const response = await fetch(`http://localhost:4000/post/profile/${userName}`, {
+            const response = await fetch(`https://veilvox.onrender.com/post/profile/${userName}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -133,7 +133,7 @@ export default function Profile() {
 
     const fetchUserData = async () => {
         try{
-            const response = await fetch(`http://localhost:4000/post/profile/${userName}`);
+            const response = await fetch(`https://veilvox.onrender.com/post/profile/${userName}`);
             const res = await response.json();
             setUserId(res._id);
             setPic(res.pic);
@@ -211,7 +211,7 @@ export default function Profile() {
         formData.append('file', create.file);
     
         try {
-            const response = await fetch('http://localhost:4000/uploads/', {
+            const response = await fetch('https://veilvox.onrender.com/uploads/', {
                 method: 'POST',
                 body: formData
             });
@@ -233,7 +233,7 @@ export default function Profile() {
 
     async function sendPic() {
         const url = localStorage.getItem('image');
-        const response = await fetch(`http://localhost:4000/auth/${user.name}`, {
+        const response = await fetch(`https://veilvox.onrender.com/auth/${user.name}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"

@@ -56,7 +56,7 @@ export default function CreatePost() {
     formData.append('file', create.file);
 
     try {
-      const response = await fetch('http://localhost:4000/uploads/', {
+      const response = await fetch('https://veilvox.onrender.com/uploads/', {
         method: 'POST',
         body: formData
       });
@@ -92,7 +92,7 @@ export default function CreatePost() {
   }
       async function sendPost() {
         const url=(localStorage.getItem('image'));
-        const response = await fetch(`http://localhost:4000/post/${user.userId}`, {
+        const response = await fetch(`https://veilvox.onrender.com/post/${user.userId}`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

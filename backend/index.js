@@ -15,12 +15,12 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://radiant-llama-8d9b03.netlify.app',
     credentials: true,
 }));
 
 app.use(cookies({
-    origin: 'http://localhost:3000',
+    origin: 'https://radiant-llama-8d9b03.netlify.app',
     credentials: true,
 }));
 
@@ -47,7 +47,7 @@ DB();
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "http://localhost:3000"
+        origin: "https://radiant-llama-8d9b03.netlify.app"
     },
     credentials: true,
 });

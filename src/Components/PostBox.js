@@ -53,7 +53,7 @@ export default function PostBox({user,caption,ele,userPic}) {
     const UpvoteButton = ({ele, isUpvoted, setIsUpvoted, setIsDownvoted, setUpvoteLen, setDownvoteLen}) => {
         async function upvotePost(e) {
             e.preventDefault();
-            const response = await fetch(`http://localhost:4000/post/upvote/${ele._id}`, {
+            const response = await fetch(`https://veilvox.onrender.com/post/upvote/${ele._id}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -92,7 +92,7 @@ export default function PostBox({user,caption,ele,userPic}) {
     const DownvoteButton = ({ele, setIsUpvoted, isDownvoted, setIsDownvoted, setUpvoteLen, setDownvoteLen}) => {
         async function downvotePost(e) {
             e.preventDefault();
-            const response = await fetch(`http://localhost:4000/post/downvote/${ele._id}`, {
+            const response = await fetch(`https://veilvox.onrender.com/post/downvote/${ele._id}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -129,7 +129,7 @@ export default function PostBox({user,caption,ele,userPic}) {
     const handleDelete = async () => {
         onClose();
         try{
-            const response = await fetch(`http://localhost:4000/post/${ele._id}`,{
+            const response = await fetch(`https://veilvox.onrender.com/post/${ele._id}`,{
                 method: "DELETE",
                 headers: {
                     "content-type": "application/json"

@@ -2,7 +2,7 @@
   "name": "anony",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000",
+  "proxy": "https://veilvox.onrender.com",
   "dependencies": {
     "@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly": "^7.23.7",
     "@babel/plugin-transform-class-properties": "^7.23.3",

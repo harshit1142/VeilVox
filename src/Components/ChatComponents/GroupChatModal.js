@@ -33,7 +33,7 @@ export const GroupChatModal = ({ children }) => {
         }
         try{
             setLoading(true);
-            const response = await fetch(`http://localhost:4000/auth/${user.userId}`,{
+            const response = await fetch(`https://veilvox.onrender.com/auth/${user.userId}`,{
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -87,7 +87,7 @@ export const GroupChatModal = ({ children }) => {
             });
         }
         try{
-            const response = await fetch(`http://localhost:4000/chat/group/${user.userId}`,{
+            const response = await fetch(`https://veilvox.onrender.com/chat/group/${user.userId}`,{
                 method: "POST",
                 headers: {
                     "content-type": "application/json",

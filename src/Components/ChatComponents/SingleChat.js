@@ -10,7 +10,7 @@ import { io } from "socket.io-client";
 import Lottie from "react-lottie";
 import animationData from './typing.json';
 
-const ENDPOINT = "http://localhost:4000";
+const ENDPOINT = "https://veilvox.onrender.com";
 let socket, selectedChatCompare;
 
 export const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -37,7 +37,7 @@ export const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         if(!selectedChat) return;
         try{
             setLoading(true);
-            const response = await fetch(`http://localhost:4000/message/${selectedChat._id}`);
+            const response = await fetch(`https://veilvox.onrender.com/message/${selectedChat._id}`);
             const res = await response.json();
             const data = res.data;
             // basically whenever a chat room is opened, user is joined in it
@@ -92,7 +92,7 @@ export const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             socket.emit('stop typing', selectedChat._id);
             try{
                 setNewMessage("");
-                const response = await fetch(`http://localhost:4000/message/${selectedChat._id}`,{
+                const response = await fetch(`https://veilvox.onrender.com/message/${selectedChat._id}`,{
                     method: "POST",
                     headers: {
                         "content-type": "application/json",
