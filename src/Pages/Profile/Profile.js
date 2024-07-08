@@ -160,8 +160,14 @@ export default function Profile() {
   }, [loading, user, history]);
 
   if (loading) {
-    return <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"2"}}><Spinner /></div>; 
-  }
+    return (
+        <>
+            <div style={{display: "flex", flexDirection:"column"}}>
+                <Navbar />
+                <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"20px"}}><Spinner /></div>
+            </div>
+        </>
+    )}
 
   if ((user === null || user.name === "")) {
     return history.push("/login");
