@@ -1,70 +1,55 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# VeilVox
 
-## Available Scripts
+![Home](https://github.com/harshit1142/VeilVox/assets/127278201/b5fa5ac1-50b7-48a7-a86e-8d2a353dc483)
+VeilVox is an anonymous social media web application. The application will provide users with a platform to interact anonymously, share multimedia content, and engage in real-time conversations.
+This project is built with MERN stack (MongoDB, Express.js, React.js, Node.js) along with Socket.IO.
 
-In the project directory, you can run:
+## Deployment
 
-### `npm start`
+The live project is accessible at:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[Click Here](https://668c0f5a31558d6273631777--precious-klepon-33af0f.netlify.app/)
 
-The page will reload when you make changes.
-You may also see any lint errors in the console.
+## Tech Stacks
+- [MongoDB](https://www.mongodb.com/): A NoSQL database for storing and managing data.
 
-### `npm test`
+- [Express.js](https://expressjs.com/): An open-source web application framework built for Node.js.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [React.js](https://react.dev/): A JavaScript library for building user interfaces (UIs).
 
-### `npm run build`
+- [Node.js](https://nodejs.org/): A JavaScript runtime built on Chrome's V8 JavaScript engine.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Socket.io](https://socket.io/): A library for real-time web applications. It enables real-time, bidirectional, and event-based communication.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
 
-### `npm run eject`
+1. **User Registration**: Account creation with minimal personal information to maintain user anonymity
+ ![register](https://github.com/harshit1142/VeilVox/assets/127278201/3ec2ffd5-cbd0-4d99-b797-98c05235e730)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. **Real-time Chat Interface**: Users can connect with others through private chat rooms, facilitating discussions and spontaneous interaction.
+![chat](https://github.com/harshit1142/VeilVox/assets/127278201/4474ebb0-e5ae-42ce-bdbc-0442ad5ba138)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Post Feed**:  A central feed displays the latest posts from the community
+![feed](https://github.com/harshit1142/VeilVox/assets/127278201/4fbd8829-b467-4c52-a224-b7e7943fd615)
+![post](https://github.com/harshit1142/VeilVox/assets/127278201/5b28a52e-7045-41cd-83a1-33f72defb1ab)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Individual Post View**: Allows users to view specific posts in detail, including comments, likes/dislikes, and the option to comment themselves
+![comment](https://github.com/harshit1142/VeilVox/assets/127278201/bff18545-da81-4e56-b622-55ca948d051f)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. **Simple UI**: The design focuses on clarity and ease of use, allowing users to navigate and interact with the platform intuitively.
 
-## Learn More
+6. **Community/user Search**:Users can search for specific channels or other users by name/username or keywords related to the channel/user's theme.
+![search](https://github.com/harshit1142/VeilVox/assets/127278201/5807c6c7-a6c3-4be0-8e67-e49c238f8fb9)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contributors
+Team name : Web Titans
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Lakshit Rajput](https://github.com/lakshitrajput)
+- [Harshit Pandey](https://github.com/harshit1142)
+- [Harshit Shukla](https://github.com/harshitshukla1729)
+- [Divyanshu Purbey](https://github.com/DivyanshuPurbey)
 
-### Code Splitting
+![Culrav-Avishkar](https://github.com/harshit1142/VeilVox/assets/127278201/ed8fe4d9-8bdf-451f-be35-2a1b470846df)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
