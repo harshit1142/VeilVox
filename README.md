@@ -51,5 +51,5 @@ Team name : Web Titans
 - [Harshit Shukla](https://github.com/harshitshukla1729)
 - [Divyanshu Purbey](https://github.com/DivyanshuPurbey)
 
-![Culrav-Avishkar](https://github.com/harshit1142/VeilVox/assets/127278201/ed8fe4d9-8bdf-451f-be35-2a1b470846df)
-
+## Made at:
+![Culrav-Avishkar](https://github.com/harshit1142/VeilVox/assets/127278201/0623064e-9652-44d2-a2ff-a3f892d83353)
